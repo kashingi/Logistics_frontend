@@ -64,7 +64,7 @@ export class Login {
       next: (resp: any) => {
         console.log("Login successful:", resp);
         this.isLoading = false;
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/main-layout']);
         this.snackbar.success("Welcome back!", "Close");
       },
       error: (err: any) => {
