@@ -1,1 +1,31 @@
-<p>verify-email works!</p>
+<div class="auth-page">
+  <div class="container-fluid p-0">
+    <div class="row g-0">
+      <app-auth-welcome-panel class="col-12 col-md-6 d-none d-md-flex"></app-auth-welcome-panel>
+      <div class="col-12 col-md-6 auth-right-panel d-flex align-items-center justify-content-center">
+        <div class="verify-card text-center">
+
+          <div *ngIf="isLoading">
+            <mat-spinner diameter="50" class="mx-auto mb-3"></mat-spinner>
+            <h4>Verifying your email...</h4>
+            <p class="text-muted">Please wait a moment</p>
+          </div>
+
+          <div *ngIf="!isLoading">
+            <div class="icon-circle" [class.success]="isSuccess" [class.error]="!isSuccess">
+              <mat-icon>{{ isSuccess ? 'check_circle' : 'error' }}</mat-icon>
+            </div>
+
+            <h3 class="mt-3">{{ isSuccess ? 'Email Verified!' : 'Verification Failed' }}</h3>
+            <p class="text-muted mb-4">{{ message }}</p>
+
+            <button mat-flat-button class="verify-btn" (click)="goToLogin()">
+              Go to Login
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

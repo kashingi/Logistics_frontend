@@ -1,0 +1,37 @@
+.verify-card {
+  width: 100%;
+  max-width: 420px;
+}
+
+.icon-circle {
+  display: flex;
+  width: 80px;
+  height: 80px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  border-radius: 50%;
+
+  mat-icon {
+    width: 48px;
+    height: 48px;
+    color: white;
+    font-size: 48px;
+  }
+
+  &.success {
+    background: #059669;
+  }
+
+  &.error {
+    background: #dc2626;
+  }
+}
+
+.verify-btn {
+  min-width: 180px;
+  height: 48px !important;
+  border-radius: 8px !important;
+  background-color: #0d9488 !important;
+  color: white !important;
+}

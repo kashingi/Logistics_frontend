@@ -9,6 +9,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router, RouterModule } from '@angular/router';
 import { Auth } from '../../../core/services/auth';
 import { Snackbar } from '../../../core/services/snackbar';
+import { AuthWelcomePanel } from '../auth-welcome-panel/auth-welcome-panel';
 
 @Component({
   selector: 'app-signup',
@@ -21,6 +22,7 @@ import { Snackbar } from '../../../core/services/snackbar';
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    AuthWelcomePanel,
   ],
   templateUrl: './signup.html',
   styleUrl: './signup.scss',

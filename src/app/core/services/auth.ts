@@ -43,10 +43,10 @@ export class Auth {
     return this.httpClient.post(forgotUrl, { email });
   }
 
-  resetPassword(token: string, newPassword: string): Observable<any> {
+  resetPassword(resetData: any): Observable<any> {
     const resetUrl = `${this.apiUrl}/auth/reset-password`;
 
-    return this.httpClient.post(resetUrl, { token, newPassword});
+    return this.httpClient.post(resetUrl, resetData);
   }
 
   changePassword(currentPassword: string, newPassword: string): Observable<any> {

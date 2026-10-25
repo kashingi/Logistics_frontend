@@ -1,83 +1,20 @@
-
-.login-page {
-  height: 100vh;
-  min-height: 600px;
-  overflow: hidden;
-}
-
-.login-page .container-fluid,
-.login-page .row {
-  height: 100%;
-}
-
-.left-panel {
-  display: flex;
-  height: 100%;
-  padding: 0;
-  background: linear-gradient(135deg, #0f172a, #1e3a8a);
-  overflow: hidden;
-}
-
-.left-content {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  color: white;
-  text-align: center;
-  overflow: hidden;
-}
-
-.banner-image {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.35;
-}
-
-.welcome-text {
-  position: relative;
-  z-index: 2;
-  max-width: 480px;
-}
-
-.right-panel {
-  height: 100%;
-  padding: 2rem;
-  background: #fff;
-}
-
 .login-card {
   width: 100%;
   max-width: 420px;
 }
 
-/* Hide left panel only at 650px and below */
-@media (max-width: 650px) {
-  .login-page {
-    height: auto;
-    min-height: 100vh;
-    overflow: auto;
-  }
+.login-btn {
+  min-height: 48px;
+  border-radius: 8px !important;
+}
 
-  .login-page .row {
-    height: auto;
-  }
+.forgot-link,
+.signup-link {
+  color: #0d9488;
+  text-decoration: none;
+  font-weight: 500;
 
-  .left-panel {
-    display: none !important;
-  }
-
-  .right-panel {
-    flex: 0 0 100%;
-    max-width: 100%;
-    min-height: 100vh;
-    padding: 2rem 1.5rem;
+  &:hover {
+    text-decoration: underline;
   }
 }

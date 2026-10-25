@@ -9,11 +9,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AuthWelcomePanel } from '../auth-welcome-panel/auth-welcome-panel';
 
 @Component({
   selector: 'app-forgot-password',
   imports: [
-     CommonModule,
+    CommonModule,
     ReactiveFormsModule,
     RouterModule,
     MatFormFieldModule,
@@ -21,6 +22,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    AuthWelcomePanel,
   ],
   templateUrl: './forgot-password.html',
   styleUrl: './forgot-password.scss',
@@ -35,7 +37,7 @@ export class ForgotPassword {
     private authService: Auth,
     private router: Router,
     private snackbar: Snackbar
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.forgotPasswordForm = this.formBuilder.group({

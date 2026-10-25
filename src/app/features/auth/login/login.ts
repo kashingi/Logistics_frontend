@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Auth } from '../../../core/services/auth';
 import { Snackbar } from '../../../core/services/snackbar';
+import { AuthWelcomePanel } from '../auth-welcome-panel/auth-welcome-panel';
 
 @Component({
   selector: 'app-login',
@@ -26,6 +27,7 @@ import { Snackbar } from '../../../core/services/snackbar';
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    AuthWelcomePanel,
   ],
   templateUrl: './login.html',
   styleUrl: './login.scss',
@@ -35,7 +37,6 @@ export class Login {
   loginForm!: FormGroup;
   hidePassword = true;
   isLoading = false;
-  errorMessage = '';
 
   constructor(
     private fb: FormBuilder,
@@ -54,7 +55,6 @@ export class Login {
   onSubmit(): void {
     
     this.isLoading = true;
-    this.errorMessage = '';
     const loginData = {
       email: this.loginForm.value.email,
       password: this.loginForm.value.password,
@@ -69,7 +69,7 @@ export class Login {
       },
       error: (err: any) => {
         this.isLoading = false;
-        this.errorMessage = err?.error?.message;
+        console.log("Login failed:", err);
         this.snackbar.danger(err?.error?.message, "Close");
       },
     });
