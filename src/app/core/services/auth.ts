@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { User } from '../models/user';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ export class Auth {
 
   apiUrl = environment.apiUrl;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   signup(signupData: User): Observable<User> {
     const signupUrl = `${this.apiUrl}/auth/signup`;
@@ -22,9 +22,12 @@ export class Auth {
   login(loginData: any): Observable<any> {
     const loginUrl = `${this.apiUrl}/auth/login`;
 
-    return this.httpClient.post<any>(loginUrl, loginData);
+    return this.httpClient.post<any>(loginUrl, loginData).pipe(tap(res => {
+        localStorage.setItem('token', res.token);
+      })
+    );
   }
-  
+
   verifyEmail(token: string): Observable<any> {
     const verifyEmailUrl = `${this.apiUrl}/auth/verify-email?token=${token}`;
 
@@ -33,7 +36,7 @@ export class Auth {
 
   resendVerificationToken(email: string): Observable<any> {
     const resendUrl = `${this.apiUrl}/auth/resend-verificationToken`;
-    
+
     return this.httpClient.post(resendUrl, { email });
   }
 
@@ -50,7 +53,15 @@ export class Auth {
   }
 
   changePassword(currentPassword: string, newPassword: string): Observable<any> {
-    return this.httpClient.post(`${this.apiUrl}/auth/change-password`, { currentPassword, newPassword});
+    return this.httpClient.post(`${this.apiUrl}/auth/change-password`, { currentPassword, newPassword });
+  }
+
+  getUserDetails() {
+    const token = localStorage.getItem('token');
+
+    if (!token) return null;
+
+    return JSON.parse(atob(token.split('.')[1]));
   }
 
   logout(): void {
