@@ -35,7 +35,7 @@ export class Sidebar {
       icon: 'inventory_2',
       children: [
         { label: 'Products', icon: 'category', route: '/products' },
-        { label: 'Categories', icon: 'list', route: '/categories' },
+        { label: 'Categories', icon: 'list', route: '/features/catalog/categories' },
       ],
     },
     {
