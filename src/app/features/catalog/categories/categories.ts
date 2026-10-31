@@ -1,13 +1,16 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, TemplateRef, ViewChild } from '@angular/core';
 import { CategoryDialog } from '../../../shared/dialogs/category-dialog/category-dialog';
 import { Snackbar } from '../../../core/services/snackbar';
-import { Category } from '../../../core/services/category';
+import { Category as CategoryService } from '../../../core/services/category';
+import { Category } from '../../../core/models/category';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDivider } from '@angular/material/divider';
 
 
 @Component({
@@ -19,18 +22,25 @@ import { MatChipsModule } from '@angular/material/chips';
     MatIconModule,
     MatDialogModule,
     MatChipsModule,
-  ],
+    MatTooltipModule,
+    MatDivider
+],
   templateUrl: './categories.html',
   styleUrl: './categories.scss',
 })
 export class Categories {
 
-  categories: any[] = [];
-  displayedColumns = ['id', 'name', 'status', 'createdAt', 'actions'];
+  private cdr = inject(ChangeDetectorRef);
+
+  categories: Category[] = [];
+  displayedColumns = ['id', 'name', 'status', 'createdAt', 'updatedAt', 'actions'];
   isLoading = false;
 
+  @ViewChild('viewCategoryTemplate')
+  viewCategoryTemplate!: TemplateRef<any>;
+
   constructor(
-    private categoryService: Category,
+    private categoryService: CategoryService,
     private dialog: MatDialog,
     private snackBar: Snackbar
   ) { }
@@ -40,11 +50,12 @@ export class Categories {
   }
 
   loadCategories(): void {
-    //this.isLoading = true;
+    this.isLoading = true;
     this.categoryService.getAll().subscribe({
-      next: (res: any) => {
-        this.categories = res?.payLoad;
+      next: (resp: any) => {
+        this.categories = resp?.payLoad;
         this.isLoading = false;
+        this.cdr.markForCheck();
       },
       error: (err: any) => {
         this.isLoading = false;
@@ -65,7 +76,7 @@ export class Categories {
     });
   }
 
-  openEditDialog(category: any): void {
+  openEditDialog(category: Category): void {
     const dialogRef = this.dialog.open(CategoryDialog, {
       width: '500px',
       maxWidth: '95vw',
@@ -77,17 +88,22 @@ export class Categories {
     });
   }
 
-  openViewDialog(category: any): void {
-    this.dialog.open(CategoryDialog, {
-      width: '450px',
+  openViewDialog(category: Category): void {
+    this.dialog.open(this.viewCategoryTemplate, {
+      width: '500px',
       maxWidth: '95vw',
-      data: category,
+      data: category
     });
   }
 
-  toggleStatus(category: any): void {
+  toggleStatus(category: Category): void {
+    if (category.id === undefined) {
+      this.snackBar.danger('Unable to update category without an ID.', 'Close');
+      return;
+    }
+    const categoryId = category.id;
     const newStatus = category.status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
-    this.categoryService.updateStatus(category.id, newStatus).subscribe({
+    this.categoryService.updateStatus(categoryId, newStatus).subscribe({
       next: (resp: any) => {
         this.snackBar.success(resp?.message, 'Close');
         this.loadCategories();

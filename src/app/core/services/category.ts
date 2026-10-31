@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Category as CategoryModel } from '../models/category';
 
 
 
@@ -14,39 +15,39 @@ export class Category {
 
   constructor(private httpClient: HttpClient) { }
 
-  create(data: Category): Observable<Category> {
-    const createUrl = `${this.apiUrl}/addCategory`;
+  create(data: CategoryModel): Observable<CategoryModel> {
+    const createUrl = `${this.apiUrl}/category/addCategory`;
 
-    return this.httpClient.post<Category>(createUrl, data);
+    return this.httpClient.post<CategoryModel>(createUrl, data);
   }
 
-  getAll(): Observable<Category[]> {
-    const getUrl = `${this.apiUrl}/getAllCategories`;
+  getAll(): Observable<CategoryModel[]> {
+    const getUrl = `${this.apiUrl}/category/getAllCategories`;
 
-    return this.httpClient.get<Category[]>(getUrl);
+    return this.httpClient.get<CategoryModel[]>(getUrl);
   }
 
-  getById(id: number): Observable<Category> {
-    const getUrl = `${this.apiUrl}/getCategoryById/${id}`;
+  getById(id: number): Observable<CategoryModel> {
+    const getUrl = `${this.apiUrl}/category/getCategoryById/${id}`;
 
-    return this.httpClient.get<Category>(getUrl);
+    return this.httpClient.get<CategoryModel>(getUrl);
   }
 
-  getcategoryByStatus(status: string): Observable<Category[]> {
-    const getUrl = `${this.apiUrl}/getCategoryByStatus/${status}`;
+  getcategoryByStatus(status: string): Observable<CategoryModel[]> {
+    const getUrl = `${this.apiUrl}/category/getCategoryByStatus/${status}`;
 
-    return this.httpClient.get<Category[]>(getUrl);
+    return this.httpClient.get<CategoryModel[]>(getUrl);
   }
 
-  update(id: number, data: Category): Observable<Category> {
-    const updateUrl = `${this.apiUrl}/updateCategory/${id}`;
+  update(id: number, data: CategoryModel): Observable<CategoryModel> {
+    const updateUrl = `${this.apiUrl}/category/updateCategory/${id}`;
 
-    return this.httpClient.put<Category>(updateUrl, data);
+    return this.httpClient.put<CategoryModel>(updateUrl, data);
   }
 
   updateStatus(id: number, status: string): Observable<any> {
-    const updateStatusUrl = `${this.apiUrl}/updateCategoryStatus/${id}`;
+    const updateStatusUrl = `${this.apiUrl}/category/updateCategoryStatus/${id}`;
 
-    return this.httpClient.patch(updateStatusUrl, status);
+    return this.httpClient.patch(updateStatusUrl, { status });
   }
 }

@@ -34,8 +34,8 @@ export class Sidebar {
       label: 'Catalog',
       icon: 'inventory_2',
       children: [
-        { label: 'Products', icon: 'category', route: '/products' },
-        { label: 'Categories', icon: 'list', route: '/features/catalog/categories' },
+        { label: 'Products', icon: 'category', route: '/main-layout/products' },
+        { label: 'Categories', icon: 'list', route: '/main-layout/categories' },
       ],
     },
     {

@@ -1,42 +1,44 @@
-// Include theming for Angular Material with `mat.theme()`.
-// This Sass mixin will define CSS variables that are used for styling Angular Material
-// components according to the Material 3 design spec.
-// Learn more about theming and how to use it for your application's
-// custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
+@use './assets/styles/variables' as *;
 
+// Bootstrap
+@use 'bootstrap/scss/bootstrap';
+
+// ======================
+// ANGULAR MATERIAL THEME
+// ======================
 html {
   height: 100%;
-  @include mat.theme(
-    (
-      color: (
-        primary: mat.$azure-palette,
-        tertiary: mat.$blue-palette,
-      ),
-      typography: Roboto,
-      density: 0,
-    )
-  );
+
+  @include mat.theme((
+    color: (
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
+// ======================
+// GLOBAL STYLES
+// ======================
+html,
+body {
+  height: 100%;
+  margin: 0;
 }
 
 body {
-  // Default the application to a light color theme. This can be changed to
-  // `dark` to enable the dark color theme, or to `light dark` to defer to the
-  // user's system settings.
   color-scheme: light;
-
-  // Set a default background, font and text colors for the application using
-  // Angular Material's system-level CSS variables. Learn more about these
-  // variables at https://material.angular.dev/guide/system-variables
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
-
-  // Reset the user agent margin.
-  margin: 0;
-  height: 100%;
+  background-color: $content-bg;
+  color: $dark;
+  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
 }
 
+// ======================
+// AUTHENTICATION PAGES
+// ======================
 .auth-page {
   min-height: 100vh;
   min-height: 100svh;
@@ -53,7 +55,7 @@ body {
   min-height: 100vh;
   min-height: 100svh;
   padding: clamp(1.5rem, 4vw, 3rem);
-  background: #fff;
+  background-color: $white;
 }
 
 .auth-logo-circle {
@@ -64,16 +66,19 @@ body {
   justify-content: center;
   margin: 0 auto;
   border-radius: 50%;
-  background: linear-gradient(135deg, #1e40af, #3b82f6);
+  background: linear-gradient(135deg, $primary, $primary-light);
 
   mat-icon {
     width: 36px;
     height: 36px;
-    color: #fff;
+    color: $white;
     font-size: 36px;
   }
 }
 
+// ======================
+// RESPONSIVE STYLES
+// ======================
 @media (max-width: 767.98px) {
   .auth-right-panel {
     min-height: 100vh;
@@ -82,22 +87,23 @@ body {
   }
 }
 
-/* You can add global styles to this file, and also import other style files */
-
+// ======================
+// ANGULAR MATERIAL SNACKBARS
+// ======================
 .mat-mdc-snack-bar-container.snackbar-success {
-  --mat-snack-bar-container-color: #2e7d32;
-  --mat-snack-bar-supporting-text-color: #ffffff;
-  --mat-snack-bar-button-color: #ffffff;
+  --mat-snack-bar-container-color: #{$success};
+  --mat-snack-bar-supporting-text-color: #{$white};
+  --mat-snack-bar-button-color: #{$white};
 }
 
 .mat-mdc-snack-bar-container.snackbar-danger {
-  --mat-snack-bar-container-color: #c62828;
-  --mat-snack-bar-supporting-text-color: #ffffff;
-  --mat-snack-bar-button-color: #ffffff;
+  --mat-snack-bar-container-color: #{$danger};
+  --mat-snack-bar-supporting-text-color: #{$white};
+  --mat-snack-bar-button-color: #{$white};
 }
 
 .mat-mdc-snack-bar-container.snackbar-warning {
-  --mat-snack-bar-container-color: #ef6c00;
-  --mat-snack-bar-supporting-text-color: #ffffff;
-  --mat-snack-bar-button-color: #ffffff;
+  --mat-snack-bar-container-color: #{$warning};
+  --mat-snack-bar-supporting-text-color: #{$white};
+  --mat-snack-bar-button-color: #{$white};
 }

@@ -1,1 +1,48 @@
-<p>category-dialog works!</p>
+<h2 mat-dialog-title>{{ isEdit ? 'Edit Category' : 'Add Category' }}</h2>
+
+<mat-dialog-content>
+
+  <form [formGroup]="form" class="pt-2">
+    <div class="row g-3 justify-content-center">
+
+      <!-- Category Name -->
+      <div class="col-12 col-sm-8 col-md-8">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Category Name</mat-label>
+          <input matInput formControlName="name" placeholder="e.g. Electronics" />
+          <mat-error *ngIf="form.get('name')?.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Status -->
+      <div class="col-12 col-sm-4 col-md-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status">
+            <mat-option *ngFor="let status of statuses" [value]="status.value">
+              {{ status.name | titlecase }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('status')?.hasError('required')">
+            Status is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="isLoading">
+    @if (!isLoading) {
+    <span>{{ isEdit ? 'Update' : 'Save' }}</span>
+    }
+    @if (isLoading) {
+    <mat-spinner diameter="20"></mat-spinner>
+    }
+  </button>
+</mat-dialog-actions>
