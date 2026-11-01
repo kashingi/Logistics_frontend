@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, inject, TemplateRef, ViewChild } from '@angular/core';
 import { CategoryDialog } from '../../../shared/dialogs/category-dialog/category-dialog';
 import { Snackbar } from '../../../core/services/snackbar';
-import { Category as CategoryService } from '../../../core/services/category';
-import { Category } from '../../../core/models/category';
+import { Category } from '../../../core/services/category';
+import { CategoryModel } from '../../../core/models/category';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
@@ -32,7 +32,7 @@ export class Categories {
 
   private cdr = inject(ChangeDetectorRef);
 
-  categories: Category[] = [];
+  categories: CategoryModel[] = [];
   displayedColumns = ['id', 'name', 'status', 'createdAt', 'updatedAt', 'actions'];
   isLoading = false;
 
@@ -40,7 +40,7 @@ export class Categories {
   viewCategoryTemplate!: TemplateRef<any>;
 
   constructor(
-    private categoryService: CategoryService,
+    private categoryService: Category,
     private dialog: MatDialog,
     private snackBar: Snackbar
   ) { }
@@ -53,7 +53,7 @@ export class Categories {
     this.isLoading = true;
     this.categoryService.getAll().subscribe({
       next: (resp: any) => {
-        this.categories = resp?.payLoad;
+        this.categories = resp?.payLoad ?? [];
         this.isLoading = false;
         this.cdr.markForCheck();
       },
@@ -76,7 +76,7 @@ export class Categories {
     });
   }
 
-  openEditDialog(category: Category): void {
+  openEditDialog(category: CategoryModel): void {
     const dialogRef = this.dialog.open(CategoryDialog, {
       width: '500px',
       maxWidth: '95vw',
@@ -88,7 +88,7 @@ export class Categories {
     });
   }
 
-  openViewDialog(category: Category): void {
+  openViewDialog(category: CategoryModel): void {
     this.dialog.open(this.viewCategoryTemplate, {
       width: '500px',
       maxWidth: '95vw',
@@ -96,7 +96,7 @@ export class Categories {
     });
   }
 
-  toggleStatus(category: Category): void {
+  toggleStatus(category: CategoryModel): void {
     if (category.id === undefined) {
       this.snackBar.danger('Unable to update category without an ID.', 'Close');
       return;

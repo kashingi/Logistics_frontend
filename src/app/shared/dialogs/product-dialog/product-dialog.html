@@ -1,1 +1,236 @@
-<p>product-dialog works!</p>
+<h2 mat-dialog-title class="mb-0 text-center">
+    {{ isEdit ? 'Edit Product' : 'Add Product' }}
+</h2>
+
+<mat-divider></mat-divider>
+
+<mat-dialog-content class="pt-3">
+    <form [formGroup]="productForm">
+        <div class="row g-3">
+
+            <!-- Basic Info -->
+            <div class="col-12">
+                <h6 class="text-muted border-bottom pb-1">Basic Information</h6>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Product Name *</mat-label>
+                    <input matInput formControlName="name" />
+                    <mat-error *ngIf="productForm.get('name')?.hasError('required')">Required</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>SKU Code *</mat-label>
+                    <input matInput formControlName="skuCode" />
+                    <mat-error *ngIf="productForm.get('skuCode')?.hasError('required')">Required</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Serial / Barcode</mat-label>
+                    <input matInput formControlName="serialNumber" />
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Brand</mat-label>
+                    <input matInput formControlName="brand" />
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Category *</mat-label>
+                    <mat-select formControlName="categoryId">
+                        <mat-option *ngFor="let cat of categories" [value]="cat.id">
+                            {{ cat.name }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="productForm.get('categoryId')?.hasError('required')">Required</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status">
+                        <mat-option *ngFor="let s of statusOptions" [value]="s">{{ s }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-12">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Description</mat-label>
+                    <textarea matInput rows="2" formControlName="description"></textarea>
+                </mat-form-field>
+            </div>
+
+            <!-- Units -->
+            <div class="col-12 mt-2">
+                <h6 class="text-muted border-bottom pb-1">Units & Packaging</h6>
+            </div>
+
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>UOM</mat-label>
+                    <mat-select formControlName="uom">
+                        <mat-option *ngFor="let u of uomOptions" [value]="u">{{ u }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Packaging Unit</mat-label>
+                    <mat-select formControlName="packagingUnit">
+                        <mat-option *ngFor="let p of packagingOptions" [value]="p">{{ p }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Qty Per Unit</mat-label>
+                    <input matInput type="number" formControlName="quantityPerUnit" />
+                </mat-form-field>
+            </div>
+
+            <!-- Pricing -->
+            <div class="col-12 mt-2">
+                <h6 class="text-muted border-bottom pb-1">Pricing</h6>
+            </div>
+
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Purchase Price</mat-label>
+                    <input matInput type="number" formControlName="purchasePrice" />
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Wholesale Price</mat-label>
+                    <input matInput type="number" formControlName="wholesalePrice" />
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Retail Price</mat-label>
+                    <input matInput type="number" formControlName="retailPrice" />
+                </mat-form-field>
+            </div>
+
+            <!-- Tax -->
+            <div class="col-12 mt-2">
+                <h6 class="text-muted border-bottom pb-1">Tax</h6>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Sales Tax Rate</mat-label>
+                    <mat-select formControlName="salesTaxRate">
+                        <mat-option *ngFor="let t of taxRateOptions" [value]="t">{{ t }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Purchase Tax Rate</mat-label>
+                    <mat-select formControlName="purchaseTaxRate">
+                        <mat-option *ngFor="let t of taxRateOptions" [value]="t">{{ t }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <!-- Batch -->
+            <div class="col-12 mt-2">
+                <h6 class="text-muted border-bottom pb-1">Batch / Shelf Life</h6>
+            </div>
+
+            <div class="col-md-4 d-flex align-items-center">
+                <mat-checkbox formControlName="batchManaged">Batch Managed</mat-checkbox>
+            </div>
+
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Shelf Life (Days)</mat-label>
+                    <input matInput type="number" formControlName="shelfLifeDays" />
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Early Warning (Days)</mat-label>
+                    <input matInput type="number" formControlName="earlyWarningDays" />
+                </mat-form-field>
+            </div>
+
+            <div class="col-12">
+                <h6 class="text-muted border-bottom pb-1">Product Images</h6>
+                <div
+                    class="image-drop-zone"
+                    [class.image-drop-zone-active]="isDraggingImages"
+                    [class.image-drop-zone-disabled]="images.length >= maxImages || isReadingImages"
+                    (dragover)="onImageDragOver($event)"
+                    (dragleave)="onImageDragLeave($event)"
+                    (drop)="onImageDrop($event)"
+                >
+                    <input
+                        #imageInput
+                        class="visually-hidden"
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        (change)="onImageInput($event)"
+                    />
+                    <mat-icon>cloud_upload</mat-icon>
+                    <p class="mb-1">Drag and drop images here, or</p>
+                    <button
+                        mat-stroked-button
+                        type="button"
+                        (click)="imageInput.click()"
+                        [disabled]="images.length >= maxImages || isReadingImages"
+                    >
+                        Choose images
+                    </button>
+                    <small class="d-block mt-2 text-muted">
+                        {{ images.length }} of {{ maxImages }} images
+                        <span *ngIf="isReadingImages"> · Loading previews…</span>
+                    </small>
+                </div>
+
+                <div class="image-preview-list" *ngIf="images.length > 0">
+                    <div class="image-preview" *ngFor="let image of images; let i = index">
+                        <img [src]="image.productImage" [alt]="'Product image ' + (i + 1)" />
+                        <button
+                            mat-icon-button
+                            type="button"
+                            class="image-remove-button"
+                            [attr.aria-label]="'Remove image ' + (i + 1)"
+                            (click)="removeImage(i)"
+                        >
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="pb-3 px-3">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="isLoading || isReadingImages || productForm.invalid">
+        <span *ngIf="!isLoading">{{ isEdit ? 'Update' : 'Save' }}</span>
+        <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
+    </button>
+</mat-dialog-actions>

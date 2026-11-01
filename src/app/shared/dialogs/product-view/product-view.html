@@ -1,0 +1,108 @@
+<h2 mat-dialog-title class="text-center">
+    Product Details
+</h2>
+
+<mat-divider></mat-divider>
+
+<mat-dialog-content>
+    <div class="container-fluid py-2">
+        <div class="row g-3">
+
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                <small class="text-muted">Product No</small>
+                <div class="fw-semibold">{{ data.productNo || '-' }}</div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                <small class="text-muted">Product Name</small>
+                <div class="fw-semibold">{{ data.name || '-' }}</div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                <small class="text-muted">SKU Code</small>
+                <div class="fw-semibold">{{ data.skuCode || '-' }}</div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                <small class="text-muted">Category</small>
+                <div class="fw-semibold">{{ data.category?.name || '-' }}</div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                <small class="text-muted">Brand</small>
+                <div class="fw-semibold">{{ data.brand || '-' }}</div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                <small class="text-muted">Unit of Measurement</small>
+                <div class="fw-semibold">{{ data.uom || '-' }}</div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                <small class="text-muted">Packaging Unit</small>
+                <div class="fw-semibold">{{ data.packagingUnit || '-' }}</div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                <small class="text-muted">Quantity Per Unit</small>
+                <div class="fw-semibold">{{ data.quantityPerUnit ?? '-' }}</div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                <small class="text-muted">Purchase Price</small>
+                <div class="fw-semibold">{{ data.purchasePrice ?? '-' }}</div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                <small class="text-muted">Wholesale Price</small>
+                <div class="fw-semibold">{{ data.wholesalePrice ?? '-' }}</div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                <small class="text-muted">Retail Price</small>
+                <div class="fw-semibold">{{ data.retailPrice ?? '-' }}</div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                <small class="text-muted">Sales Tax Rate</small>
+                <div class="fw-semibold">{{ data.salesTaxRate || '-' }}</div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                <small class="text-muted">Purchase Tax Rate</small>
+                <div class="fw-semibold">{{ data.purchaseTaxRate || '-' }}</div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                <small class="text-muted">Batch Managed</small>
+                <div class="fw-semibold">
+                    {{ data.batchManaged ? 'Yes' : 'No' }}
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                <small class="text-muted">Shelf Life (Days)</small>
+                <div class="fw-semibold">{{ data.shelfLifeDays ?? '-' }}</div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                <small class="text-muted">Early Warning (Days)</small>
+                <div class="fw-semibold">{{ data.earlyWarningDays ?? '-' }}</div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                <small class="text-muted">Status</small>
+                <div>
+                    <span class="badge" [ngClass]="data.status === 'ACTIVE' ? 'bg-success' : 'bg-secondary'">
+                        {{ data.status }}
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

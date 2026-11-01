@@ -1,4 +1,4 @@
-export interface Product {
+export interface ProductModel {
 
     id?: number;
     productNo?: string;
@@ -21,8 +21,15 @@ export interface Product {
     status?: string;
     categoryId?: number;
     category?: any;
+    images?: ProductImage[];
     // createdBy?: string;
     // updatedBy?: string;
     // createdAt?: string;
     // updatedAt?: string;
+}
+
+export interface ProductImage {
+    id?: number;
+    productImage: string;
+    [key: string]: unknown;
 }

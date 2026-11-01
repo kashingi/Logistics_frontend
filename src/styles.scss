@@ -36,6 +36,16 @@ body {
   font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
 }
 
+.product-dialog-panel .mat-mdc-dialog-surface {
+  overflow: hidden;
+}
+
+.product-dialog-panel .mat-mdc-dialog-content {
+  flex-grow: 0;
+  max-height: calc(90vh - 12rem);
+  overflow-y: auto;
+}
+
 // ======================
 // AUTHENTICATION PAGES
 // ======================

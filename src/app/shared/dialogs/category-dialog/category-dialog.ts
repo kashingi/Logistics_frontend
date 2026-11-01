@@ -57,7 +57,6 @@ export class CategoryDialog {
 
   onSubmit(): void {
     this.isLoading = true;
-    console.log('Form Value:', this.form.value, this.isEdit);
     const request$ = this.isEdit
       ? this.categoryService.update(this.data.category.id, this.form.value)
       : this.categoryService.create(this.form.value);

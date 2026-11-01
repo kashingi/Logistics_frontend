@@ -9,7 +9,6 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
 
   const token = authService.getToken();
-  console.log('Token exists:', !!token);
 
   // Clone the request and add the Authorization header if token exists
   let authReq = req;
