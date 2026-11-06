@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Warehouse Details</h2>
+    <mat-dialog-content>
+      <div class="row g-2">
+        <div class="col-5"><strong>No:</strong></div><div class="col-7">{{ data.warehouseNo }}</div>
+        <div class="col-5"><strong>Name:</strong></div><div class="col-7">{{ data.name }}</div>
+        <div class="col-5"><strong>Category:</strong></div><div class="col-7">{{ data.category || '-' }}</div>
+        <div class="col-5"><strong>Street:</strong></div><div class="col-7">{{ data.street || '-' }}</div>
+        <div class="col-5"><strong>City:</strong></div><div class="col-7">{{ data.city || '-' }}</div>
+        <div class="col-5"><strong>Contact:</strong></div><div class="col-7">{{ data.contactPerson || '-' }}</div>
+        <div class="col-5"><strong>Phone:</strong></div><div class="col-7">{{ data.phone || '-' }}</div>
+        <div class="col-5"><strong>Email:</strong></div><div class="col-7">{{ data.email || '-' }}</div>
+        <div class="col-5"><strong>Status:</strong></div>
+        <div class="col-7"><span class="badge" [class.bg-success]="data.status==='ACTIVE'">{{ data.status }}</span></div>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Close</button>
+    </mat-dialog-actions>

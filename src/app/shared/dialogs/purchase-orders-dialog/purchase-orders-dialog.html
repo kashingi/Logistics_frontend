@@ -1,0 +1,87 @@
+<h2 mat-dialog-title>Add Purchase Order</h2>
+<mat-dialog-content class="pt-3">
+    <form [formGroup]="form">
+        <div class="row g-3 mb-3">
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Supplier *</mat-label>
+                    <mat-select formControlName="supplierId">
+                        <mat-option *ngFor="let s of suppliers" [value]="s.id">{{ s.name }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Order Date *</mat-label>
+                    <input matInput [matDatepicker]="picker1" formControlName="orderDate" />
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Expected Delivery</mat-label>
+                    <input matInput [matDatepicker]="picker2" formControlName="expectedDeliveryDate" />
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <h6 class="mb-2">Line Items</h6>
+        <div formArrayName="lines">
+            <div *ngFor="let line of lines.controls; let i = index" [formGroupName]="i"
+                class="row g-2 align-items-center mb-2 border rounded p-2">
+                <div class="col-md-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Product</mat-label>
+                        <mat-select formControlName="productId">
+                            <mat-option *ngFor="let p of products" [value]="p.id">{{ p.name }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Warehouse</mat-label>
+                        <mat-select formControlName="warehouseId">
+                            <mat-option *ngFor="let w of warehouses" [value]="w.id">{{ w.name }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Qty</mat-label>
+                        <input matInput type="number" formControlName="quantity" />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Unit Price</mat-label>
+                        <input matInput type="number" formControlName="unitPrice" />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-1">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Tax %</mat-label>
+                        <input matInput type="number" formControlName="taxRate" />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-1">
+                    <button mat-icon-button color="warn" type="button" (click)="removeLine(i)" *ngIf="lines.length > 1">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <button mat-stroked-button type="button" class="mt-2" (click)="addLine()">
+            <mat-icon>add</mat-icon> Add Line
+        </button>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="isLoading">
+        {{ isLoading ? 'Saving...' : 'Create PO' }}
+    </button>
+</mat-dialog-actions>

@@ -1,0 +1,75 @@
+<div class="container-fluid py-3">
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+    <h4 class="mb-0">Suppliers</h4>
+    <button mat-flat-button color="primary" (click)="openAdd()">
+      <mat-icon>add</mat-icon> Add Supplier
+    </button>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table mat-table [dataSource]="suppliers" class="w-100">
+          <ng-container matColumnDef="supplierNo">
+            <th mat-header-cell *matHeaderCellDef>No</th>
+            <td mat-cell *matCellDef="let row">{{ row.supplierNo }}</td>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+          </ng-container>
+          <ng-container matColumnDef="city">
+            <th mat-header-cell *matHeaderCellDef>City</th>
+            <td mat-cell *matCellDef="let row">{{ row.city }}</td>
+          </ng-container>
+          <ng-container matColumnDef="phone">
+            <th mat-header-cell *matHeaderCellDef>Phone</th>
+            <td mat-cell *matCellDef="let row">{{ row.phone }}</td>
+          </ng-container>
+          
+          <ng-container matColumnDef="contactPerson">
+            <th mat-header-cell *matHeaderCellDef>Contact Person</th>
+            <td mat-cell *matCellDef="let row">{{ row.contactPerson }}</td>
+          </ng-container>
+          <ng-container matColumnDef="street">
+            <th mat-header-cell *matHeaderCellDef>Street</th>
+            <td mat-cell *matCellDef="let row">{{ row.street }}</td>
+          </ng-container>
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge" [class.bg-success]="row.status === 'ACTIVE'"
+                [class.bg-secondary]="row.status !== 'ACTIVE'">
+                {{ row.status }}
+              </span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="text-end">Actions</th>
+            <td mat-cell *matCellDef="let row" class="text-end">
+              <button mat-icon-button color="primary" matTooltip="View"
+                (click)="openView(row)"><mat-icon>visibility</mat-icon></button>
+              <button mat-icon-button color="accent" matTooltip="Edit"
+                (click)="openEdit(row)"><mat-icon>edit</mat-icon></button>
+              <button mat-icon-button matTooltip="Toggle Status" (click)="toggleStatus(row)">
+                <mat-icon>{{ row.status === 'ACTIVE' ? 'toggle_on' : 'toggle_off' }}</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+      @if (isLoading) {
+      <div class="text-center py-5 text-muted">
+        Loading suppliers...
+      </div>
+      }
+      @if (!isLoading && suppliers.length === 0) {
+      <div class="text-center py-5 text-muted">
+        No suppliers found
+      </div>
+      }
+    </div>
+  </div>
+</div>

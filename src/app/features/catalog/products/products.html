@@ -20,13 +20,8 @@
           <ng-container matColumnDef="image">
             <th mat-header-cell *matHeaderCellDef>Image</th>
             <td mat-cell *matCellDef="let row">
-              <img
-                *ngIf="row.images?.[0]?.productImage; else noProductImage"
-                [src]="row.images[0].productImage"
-                [alt]="row.name"
-                width="50"
-                height="50"
-              />
+              <img *ngIf="row.images?.[0]?.productImage; else noProductImage" [src]="row.images[0].productImage"
+                [alt]="row.name" width="50" height="50" />
               <ng-template #noProductImage>
                 <mat-icon aria-label="No product image">image</mat-icon>
               </ng-template>
@@ -51,11 +46,8 @@
           <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef>Status</th>
             <td mat-cell *matCellDef="let row">
-              <span
-                class="badge"
-                [class.bg-success]="row.status === 'ACTIVE'"
-                [class.bg-secondary]="row.status !== 'ACTIVE'"
-              >
+              <span class="badge" [class.bg-success]="row.status === 'ACTIVE'"
+                [class.bg-secondary]="row.status !== 'ACTIVE'">
                 {{ row.status }}
               </span>
             </td>
@@ -64,29 +56,15 @@
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef class="text-end">Actions</th>
             <td mat-cell *matCellDef="let row" class="text-end">
-              <button
-                mat-icon-button
-                color="primary"
-                matTooltip="View"
-                (click)="openViewDialog(row)"
-              >
+              <button mat-icon-button color="primary" matTooltip="View" (click)="openViewDialog(row)">
                 <mat-icon>visibility</mat-icon>
               </button>
 
-              <button
-                mat-icon-button
-                color="accent"
-                matTooltip="Edit"
-                (click)="openEditDialog(row)"
-              >
+              <button mat-icon-button color="accent" matTooltip="Edit" (click)="openEditDialog(row)">
                 <mat-icon>edit</mat-icon>
               </button>
 
-              <button
-                mat-icon-button
-                matTooltip="Toggle Status"
-                (click)="toggleStatus(row)"
-              >
+              <button mat-icon-button matTooltip="Toggle Status" (click)="toggleStatus(row)">
                 <mat-icon>
                   {{ row.status === 'ACTIVE' ? 'toggle_on' : 'toggle_off' }}
                 </mat-icon>
@@ -99,9 +77,16 @@
         </table>
       </div>
 
-      <div *ngIf="!isLoading && products.length === 0" class="text-center py-5 text-muted">
+      @if (isLoading) {
+      <div class="text-center py-5 text-muted">
+        Loading products...
+      </div>
+      }
+      @if (!isLoading && products.length === 0) {
+      <div class="text-center py-5 text-muted">
         No products found
       </div>
+      }
     </div>
   </div>
 </div>

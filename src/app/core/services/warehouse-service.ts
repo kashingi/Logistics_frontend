@@ -13,7 +13,7 @@ export class WarehouseService {
 
   constructor(private httpClient: HttpClient) { }
 
-  create(data: WarehouseModel): Observable<any> {
+  createWarehouse(data: WarehouseModel): Observable<any> {
     const createUrl = `${this.apiUrl}/warehouse/addWarehouse`;
 
     return this.httpClient.post(createUrl, data);
@@ -31,10 +31,10 @@ export class WarehouseService {
     return this.httpClient.get<WarehouseModel>(getUrl);
   }
 
-  update(id: number, data: WarehouseModel): Observable<any> {
+  updateWarehouse(id: number, data: WarehouseModel): Observable<any> {
     const updateUrl = `${this.apiUrl}/warehouse/updateWarehouse/${id}`;
     
-    return this.httpClient.put(updateUrl, data);
+    return this.httpClient.patch(updateUrl, data);
   }
 
   updateStatus(id: number, status: string): Observable<any> {

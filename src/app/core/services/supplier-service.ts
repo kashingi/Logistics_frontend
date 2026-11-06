@@ -13,7 +13,7 @@ export class SupplierService {
 
   constructor(private httpClient: HttpClient) { }
 
-  create(data: SupplierModel): Observable<SupplierModel> {
+  createSupplier(data: SupplierModel): Observable<SupplierModel> {
     const createUrl = `${this.apiUrl}/supplers/addSupplier`;
 
     return this.httpClient.post<SupplierModel>(createUrl, data);
@@ -31,7 +31,7 @@ export class SupplierService {
     return this.httpClient.get<SupplierModel>(getUrl);
   }
 
-  update(id: number, data: SupplierModel): Observable<SupplierModel> {
+  updateSupplier(id: number, data: SupplierModel): Observable<SupplierModel> {
     const updateUrl = `${this.apiUrl}/supplers/updateSupplier/${id}`;
 
     return this.httpClient.put<SupplierModel>(updateUrl, data);
