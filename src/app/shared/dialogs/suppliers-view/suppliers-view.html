@@ -1,1 +1,36 @@
-<p>suppliers-view works!</p>
+<h2 mat-dialog-title class="text-center">Supplier Details</h2>
+
+<mat-divider></mat-divider>
+
+<mat-dialog-content>
+  <div class="row g-2">
+    <div class="col-5"><strong>No:</strong></div>
+    <div class="col-7">{{ data.supplierNo || '-' }}</div>
+    <div class="col-5"><strong>Name:</strong></div>
+    <div class="col-7">{{ data.name || '-' }}</div>
+    <div class="col-5"><strong>Contact Person:</strong></div>
+    <div class="col-7">{{ data.contactPerson || '-' }}</div>
+    <div class="col-5"><strong>Phone:</strong></div>
+    <div class="col-7">{{ data.phone || '-' }}</div>
+    <div class="col-5"><strong>Email:</strong></div>
+    <div class="col-7">{{ data.email || '-' }}</div>
+    <div class="col-5"><strong>Payment Terms:</strong></div>
+    <div class="col-7">{{ data.paymentTerms || '-' }}</div>
+    <div class="col-5"><strong>Street:</strong></div>
+    <div class="col-7">{{ data.street || '-' }}</div>
+    <div class="col-5"><strong>City:</strong></div>
+    <div class="col-7">{{ data.city || '-' }}</div>
+    <div class="col-5"><strong>Postal:</strong></div>
+    <div class="col-7">{{ data.postal || '-' }}</div>
+    <div class="col-5"><strong>Status:</strong></div>
+    <div class="col-7">
+      <span class="badge" [class.bg-success]="data.status === 'ACTIVE'"
+        [class.bg-secondary]="data.status !== 'ACTIVE'">
+        {{ data.status || '-' }}
+      </span>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

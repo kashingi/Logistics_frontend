@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,6 +8,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { PurchaseOrderService } from '../../../core/services/purchase-order-service';
 import { Snackbar } from '../../../core/services/snackbar';
 import { PurchaseOrdersDialog } from '../../../shared/dialogs/purchase-orders-dialog/purchase-orders-dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { PurchaseOrdersView } from '../../../shared/dialogs/purchase-orders-view/purchase-orders-view';
 
 @Component({
   selector: 'app-purchase-orders',
@@ -17,22 +20,25 @@ import { PurchaseOrdersDialog } from '../../../shared/dialogs/purchase-orders-di
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   templateUrl: './purchase-orders.html',
   styleUrl: './purchase-orders.scss',
 })
 export class PurchaseOrders {
 
-   orders: any[] = [];
+  orders: any[] = [];
   displayedColumns = ['poNumber', 'supplier', 'orderDate', 'totalAmount', 'status', 'actions'];
   isLoading = false;
 
   constructor(
     private poService: PurchaseOrderService,
     private dialog: MatDialog,
-    private snackBar: Snackbar
-  ) {}
+    private snackBar: Snackbar,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     this.loadData();
@@ -40,9 +46,10 @@ export class PurchaseOrders {
 
   loadData(): void {
     this.isLoading = true;
-    this.poService.getAll().subscribe({
+    this.poService.getAllPOs().subscribe({
       next: (resp: any) => {
         this.orders = resp?.payLoad;
+        this.cdr.markForCheck();
         this.isLoading = false;
       },
       error: (err: any) => {
@@ -63,7 +70,7 @@ export class PurchaseOrders {
   }
 
   openView(item: any): void {
-    this.dialog.open(PurchaseOrdersDialog, {
+    this.dialog.open(PurchaseOrdersView, {
       width: '700px',
       maxWidth: '95vw',
       data: item,
@@ -72,7 +79,7 @@ export class PurchaseOrders {
 
   approve(item: any): void {
     this.isLoading = true;
-    this.poService.approve(item.id).subscribe({
+    this.poService.approvePO(item.id).subscribe({
       next: (resp: any) => {
         console.log('Approve response:', resp);
         this.isLoading = false;
@@ -88,7 +95,7 @@ export class PurchaseOrders {
 
   reject(item: any): void {
     this.isLoading = true;
-    this.poService.reject(item.id).subscribe({
+    this.poService.rejectPO(item.id).subscribe({
       next: (resp: any) => {
         this.isLoading = false;
         this.snackBar.success(resp?.message, 'Close');

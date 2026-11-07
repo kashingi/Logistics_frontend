@@ -34,7 +34,7 @@ export class SupplierService {
   updateSupplier(id: number, data: SupplierModel): Observable<SupplierModel> {
     const updateUrl = `${this.apiUrl}/supplers/updateSupplier/${id}`;
 
-    return this.httpClient.put<SupplierModel>(updateUrl, data);
+    return this.httpClient.patch<SupplierModel>(updateUrl, data);
   }
 
   updateStatus(id: number, status: string): Observable<SupplierModel> {

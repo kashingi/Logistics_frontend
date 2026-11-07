@@ -119,9 +119,10 @@ export class PurchaseOrdersDialog {
         : null,
     };
 
-    this.poService.create(payload).subscribe({
-      next: () => {
+    this.poService.createPO(payload).subscribe({
+      next: (resp: any) => {
         this.isLoading = false;
+        this.snackbar.success(resp?.message, 'Close');
         this.dialogRef.close(true);
       },
       error: (err: any) => {

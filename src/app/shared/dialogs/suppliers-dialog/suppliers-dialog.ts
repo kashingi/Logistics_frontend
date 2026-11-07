@@ -45,7 +45,7 @@ export class SuppliersDialog {
 
   ngOnInit(): void {
     this.isEdit = this.data?.mode === 'edit';
-    const supplier = this.data?.warehouse || {};
+    const supplier = this.data?.supplier || {};
 
     this.form = this.formBuilder.group({
       name: [supplier.name || '', Validators.required],
@@ -66,10 +66,10 @@ export class SuppliersDialog {
       return;
     }
     const supplierData = this.form.value;
-    const warehouseId = this.isEdit ? this.data.warehouse.id : null;
+    const supplierId = this.isEdit ? this.data.supplier.id : null;
     this.isLoading = true;
     const req$ = this.isEdit
-      ? this.service.updateSupplier(warehouseId, supplierData)
+      ? this.service.updateSupplier(supplierId, supplierData)
       : this.service.createSupplier(supplierData);
 
     req$.subscribe({
@@ -80,7 +80,6 @@ export class SuppliersDialog {
       },
       error: (err: any) => {
         this.isLoading = false;
-        this.dialogRef.close(true);
         this.snackbar.danger(err?.error?.message, 'Close');
       },
     });

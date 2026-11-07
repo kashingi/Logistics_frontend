@@ -38,12 +38,12 @@
               <button mat-icon-button color="primary" matTooltip="View" (click)="openView(row)">
                 <mat-icon>visibility</mat-icon>
               </button>
-              <button mat-icon-button color="primary" matTooltip="Approve"
-                      *ngIf="row.status === 'PENDING_APPROVAL'" (click)="approve(row)">
+              <button mat-icon-button color="primary" matTooltip="Approve" *ngIf="row.status === 'PENDING_APPROVAL'"
+                (click)="approve(row)">
                 <mat-icon>check_circle</mat-icon>
               </button>
-              <button mat-icon-button color="warn" matTooltip="Reject"
-                      *ngIf="row.status === 'PENDING_APPROVAL'" (click)="reject(row)">
+              <button mat-icon-button color="warn" matTooltip="Reject" *ngIf="row.status === 'PENDING_APPROVAL'"
+                (click)="reject(row)">
                 <mat-icon>cancel</mat-icon>
               </button>
             </td>
@@ -52,7 +52,14 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
       </div>
-      <div *ngIf="!isLoading && orders.length === 0" class="text-center py-5 text-muted">No purchase orders found</div>
+      @if (isLoading) {
+      <div class="text-center py-5 text-muted">
+        Loading suppliers...
+      </div>
+      }
+      @if (!isLoading && orders.length === 0) {
+      <div class="text-center py-5 text-muted">No purchase orders found</div>
+      }
     </div>
   </div>
 </div>
