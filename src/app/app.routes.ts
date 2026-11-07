@@ -14,6 +14,7 @@ import { PurchaseOrders } from './features/procurement/purchase-orders/purchase-
 import { GoodsReceivedNotes } from './features/procurement/goods-received-notes/goods-received-notes';
 import { StockIn } from './features/inventory/stock-in/stock-in';
 import { StockOut } from './features/inventory/stock-out/stock-out';
+import { StockTransfer } from './features/inventory/stock-transfer/stock-transfer';
 
 export const routes: Routes = [
     { path: '', component: Login },
@@ -24,14 +25,15 @@ export const routes: Routes = [
     {
         path: 'main-layout', component: MainLayout,
         children: [
-            { path: 'categories', component: Categories, canActivate: [authGuard], },
-            { path: 'products', component: Products, canActivate: [authGuard], },
-            { path: 'warehouses', component: Warehouse, canActivate: [authGuard], },
-            { path: 'suppliers', component: Suppliers, canActivate: [authGuard], },
-            { path: 'purchase-orders', component: PurchaseOrders, canActivate: [authGuard], },
-            { path: 'goods-received-notes', component: GoodsReceivedNotes, canActivate: [authGuard], },
-            { path: 'stock-ins', component: StockIn, canActivate: [authGuard], },
-            { path: 'stock-outs', component: StockOut, canActivate: [authGuard], },
+            { path: 'categories', component: Categories, canActivate: [authGuard] },
+            { path: 'products', component: Products, canActivate: [authGuard] },
+            { path: 'warehouses', component: Warehouse, canActivate: [authGuard] },
+            { path: 'suppliers', component: Suppliers, canActivate: [authGuard] },
+            { path: 'purchase-orders', component: PurchaseOrders, canActivate: [authGuard] },
+            { path: 'goods-received-notes', component: GoodsReceivedNotes, canActivate: [authGuard] },
+            { path: 'stock-ins', component: StockIn, canActivate: [authGuard] },
+            { path: 'stock-outs', component: StockOut, canActivate: [authGuard] },
+            { path: 'stock-transfers', component: StockTransfer, canActivate: [authGuard] },
         ]
     },
     { path: '**', redirectTo: '' },
