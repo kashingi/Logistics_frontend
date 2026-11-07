@@ -1,0 +1,45 @@
+<h2 mat-dialog-title class="text-center">Stock In: {{ data.stockInNo }}</h2>
+
+<mat-divider></mat-divider>
+
+<mat-dialog-content>
+    <div class="row g-2 mb-3">
+        <div class="col-4"><strong>Supplier:</strong></div>
+        <div class="col-8">{{ data.supplier?.name || '-' }}</div>
+        <div class="col-4"><strong>Date:</strong></div>
+        <div class="col-8">{{ data.date | date:'mediumDate' }}</div>
+        <div class="col-4"><strong>Status:</strong></div>
+        <div class="col-8">
+            <span class="badge bg-info">{{ data.approvalStatus }}</span>
+        </div>
+        <div class="col-4"><strong>Total Expense:</strong></div>
+        <div class="col-8">{{ data.totalExpense | number:'1.2-2' }}</div>
+        <div class="col-4"><strong>Notes:</strong></div>
+        <div class="col-8">{{ data.notes || '-' }}</div>
+    </div>
+
+    <h6>Lines</h6>
+    <table class="table table-sm table-bordered">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Warehouse</th>
+                <th>Qty</th>
+                <th>Batch</th>
+                <th>Expense</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let line of data.lines">
+                <td>{{ line.product?.name }}</td>
+                <td>{{ line.warehouse?.name }}</td>
+                <td>{{ line.quantity }}</td>
+                <td>{{ line.batchNo || '-' }}</td>
+                <td>{{ line.expense | number:'1.2-2' }}</td>
+            </tr>
+        </tbody>
+    </table>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

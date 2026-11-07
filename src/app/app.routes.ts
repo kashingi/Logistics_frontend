@@ -11,6 +11,8 @@ import { Products } from './features/catalog/products/products';
 import { Suppliers } from './features/procurement/suppliers/suppliers';
 import { Warehouse } from './features/inventory/warehouse/warehouse';
 import { PurchaseOrders } from './features/procurement/purchase-orders/purchase-orders';
+import { GoodsReceivedNotes } from './features/procurement/goods-received-notes/goods-received-notes';
+import { StockIn } from './features/inventory/stock-in/stock-in';
 
 export const routes: Routes = [
     { path: '', component: Login },
@@ -26,6 +28,8 @@ export const routes: Routes = [
             { path: 'warehouses', component: Warehouse, canActivate: [authGuard], },
             { path: 'suppliers', component: Suppliers, canActivate: [authGuard], },
             { path: 'purchase-orders', component: PurchaseOrders, canActivate: [authGuard], },
+            { path: 'goods-received-notes', component: GoodsReceivedNotes, canActivate: [authGuard], },
+            { path: 'stock-ins', component: StockIn, canActivate: [authGuard], },
         ]
     },
     { path: '**', redirectTo: '' },
