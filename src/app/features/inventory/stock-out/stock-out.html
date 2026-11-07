@@ -1,1 +1,69 @@
-<p>stock-out works!</p>
+<div class="container-fluid py-3">
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+        <h4 class="mb-0">Stock Out</h4>
+        <button mat-flat-button color="primary" (click)="openAdd()">
+            <mat-icon>add</mat-icon> Add Stock Out
+        </button>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table mat-table [dataSource]="stockOuts" class="w-100">
+
+                    <ng-container matColumnDef="stockOutNo">
+                        <th mat-header-cell *matHeaderCellDef>No</th>
+                        <td mat-cell *matCellDef="let row">{{ row.stockOutNo }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef>Date</th>
+                        <td mat-cell *matCellDef="let row">{{ row.date | date:'mediumDate' }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="stockOutReason">
+                        <th mat-header-cell *matHeaderCellDef>Reason</th>
+                        <td mat-cell *matCellDef="let row">{{ row.stockOutReason }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="approvalStatus">
+                        <th mat-header-cell *matHeaderCellDef>Status</th>
+                        <td mat-cell *matCellDef="let row">
+                            <span class="badge bg-info">{{ row.approvalStatus }}</span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef class="text-end">Actions</th>
+                        <td mat-cell *matCellDef="let row" class="text-end">
+                            <button mat-icon-button color="primary" matTooltip="View" (click)="openView(row)">
+                                <mat-icon>visibility</mat-icon>
+                            </button>
+                            <button mat-icon-button color="primary" matTooltip="Approve"
+                                *ngIf="row.approvalStatus === 'PENDING'" (click)="approve(row)">
+                                <mat-icon>check_circle</mat-icon>
+                            </button>
+                            <button mat-icon-button color="warn" matTooltip="Reject"
+                                *ngIf="row.approvalStatus === 'PENDING'" (click)="reject(row)">
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                </table>
+            </div>
+
+            @if (isLoading) {
+            <div class="text-center py-5 text-muted">
+                Loading stock outs ...
+            </div>
+            }
+
+            <div *ngIf="!isLoading && stockOuts.length === 0" class="text-center py-5 text-muted">
+                No Stock Out records found
+            </div>
+        </div>
+    </div>
+</div>

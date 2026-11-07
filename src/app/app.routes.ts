@@ -13,6 +13,7 @@ import { Warehouse } from './features/inventory/warehouse/warehouse';
 import { PurchaseOrders } from './features/procurement/purchase-orders/purchase-orders';
 import { GoodsReceivedNotes } from './features/procurement/goods-received-notes/goods-received-notes';
 import { StockIn } from './features/inventory/stock-in/stock-in';
+import { StockOut } from './features/inventory/stock-out/stock-out';
 
 export const routes: Routes = [
     { path: '', component: Login },
@@ -30,6 +31,7 @@ export const routes: Routes = [
             { path: 'purchase-orders', component: PurchaseOrders, canActivate: [authGuard], },
             { path: 'goods-received-notes', component: GoodsReceivedNotes, canActivate: [authGuard], },
             { path: 'stock-ins', component: StockIn, canActivate: [authGuard], },
+            { path: 'stock-outs', component: StockOut, canActivate: [authGuard], },
         ]
     },
     { path: '**', redirectTo: '' },
