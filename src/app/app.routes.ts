@@ -15,6 +15,8 @@ import { GoodsReceivedNotes } from './features/procurement/goods-received-notes/
 import { StockIn } from './features/inventory/stock-in/stock-in';
 import { StockOut } from './features/inventory/stock-out/stock-out';
 import { StockTransfer } from './features/inventory/stock-transfer/stock-transfer';
+import { SalesQuotation } from './features/sales/sales-quotation/sales-quotation';
+import { SalesOrder } from './features/sales/sales-order/sales-order';
 
 export const routes: Routes = [
     { path: '', component: Login },
@@ -34,6 +36,8 @@ export const routes: Routes = [
             { path: 'stock-ins', component: StockIn, canActivate: [authGuard] },
             { path: 'stock-outs', component: StockOut, canActivate: [authGuard] },
             { path: 'stock-transfers', component: StockTransfer, canActivate: [authGuard] },
+            { path: 'sales-quotations', component: SalesQuotation, canActivate: [authGuard] },
+            { path: 'sales-orders', component: SalesOrder, canActivate: [authGuard] },
         ]
     },
     { path: '**', redirectTo: '' },

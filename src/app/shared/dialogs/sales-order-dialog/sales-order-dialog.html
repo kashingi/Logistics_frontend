@@ -1,0 +1,156 @@
+<h2 mat-dialog-title>Add Sales Order</h2>
+
+<mat-dialog-content class="pt-3">
+    <form [formGroup]="form">
+        <h6 class="text-muted border-bottom pb-1">Customer</h6>
+        <div class="row g-3 mb-3">
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>First Name</mat-label>
+                    <input matInput formControlName="firstName" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName="lastName" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Phone</mat-label>
+                    <input matInput formControlName="phone" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>KRA PIN</mat-label>
+                    <input matInput formControlName="kraPin" />
+                </mat-form-field>
+            </div>
+        </div>
+
+        <h6 class="text-muted border-bottom pb-1">Salesperson & Date</h6>
+        <div class="row g-3 mb-3">
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Salesperson Name</mat-label>
+                    <input matInput formControlName="salespersonName" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Salesperson Code</mat-label>
+                    <input matInput formControlName="salespersonCode" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Date</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="date" />
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <h6 class="text-muted border-bottom pb-1">Delivery Address</h6>
+        <div class="row g-3 mb-3">
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Landmark</mat-label>
+                    <input matInput formControlName="buildingLandmark" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Street</mat-label>
+                    <input matInput formControlName="street" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>House No</mat-label>
+                    <input matInput formControlName="houseNo" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Contact Person</mat-label>
+                    <input matInput formControlName="contactPerson" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Contact Phone</mat-label>
+                    <input matInput formControlName="contactPhone" />
+                </mat-form-field>
+            </div>
+        </div>
+
+        <h6 class="text-muted border-bottom pb-1">Line Items</h6>
+        <div formArrayName="lines">
+            <div *ngFor="let line of lines.controls; let i = index" [formGroupName]="i"
+                class="row g-2 align-items-center mb-2 border rounded p-2">
+                <div class="col-md-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Product</mat-label>
+                        <mat-select formControlName="productId">
+                            <mat-option *ngFor="let p of products" [value]="p.id">{{ p.name }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Quantity</mat-label>
+                        <input matInput type="number" formControlName="quantity" />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Price Tier</mat-label>
+                        <mat-select formControlName="priceTier">
+                            <mat-option *ngFor="let t of priceTiers" [value]="t">{{ t }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Discount</mat-label>
+                        <input matInput type="number" formControlName="discount" />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Fulfilment</mat-label>
+                        <mat-select formControlName="fulfilment">
+                            <mat-option *ngFor="let f of fulfilmentOptions" [value]="f">{{ f }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-1">
+                    <button mat-icon-button color="warn" type="button" (click)="removeLine(i)" *ngIf="lines.length > 1">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <button mat-stroked-button type="button" class="mt-2" (click)="addLine()">
+            <mat-icon>add</mat-icon> Add Line
+        </button>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="isLoading">
+        {{ isLoading ? 'Saving...' : 'Create Sales Order' }}
+    </button>
+</mat-dialog-actions>

@@ -1,0 +1,63 @@
+<h2 mat-dialog-title>Quotation: {{ data.sqNumber }}</h2>
+<mat-dialog-content>
+    <div class="row g-2 mb-3">
+        <div class="col-4"><strong>Customer:</strong></div>
+        <div class="col-8">{{ data.customer?.name || '-' }}</div>
+
+        <div class="col-4"><strong>Phone:</strong></div>
+        <div class="col-8">{{ data.customer?.phone || data.contactPhone || '-' }}</div>
+
+        <div class="col-4"><strong>Date:</strong></div>
+        <div class="col-8">{{ data.date | date:'mediumDate' }}</div>
+
+        <div class="col-4"><strong>Salesperson:</strong></div>
+        <div class="col-8">{{ data.salespersonName }} ({{ data.salespersonCode }})</div>
+
+        <div class="col-4"><strong>Status:</strong></div>
+        <div class="col-8"><span class="badge bg-info">{{ data.status }}</span></div>
+
+        <div class="col-4"><strong>Total:</strong></div>
+        <div class="col-8">{{ data.totalAmount | number:'1.2-2' }}</div>
+
+        <div class="col-4"><strong>Address:</strong></div>
+        <div class="col-8">
+            {{ data.buildingLandmark || '' }}
+            {{ data.street || '' }}
+            {{ data.houseNo || '' }}
+        </div>
+
+        <div class="col-4"><strong>Notes:</strong></div>
+        <div class="col-8">{{ data.notes || '-' }}</div>
+         <div class="col-4"><strong>Terms:</strong></div>
+        <div class="col-8">{{ data.terms || '-' }}</div>
+    </div>
+
+    <h6>Lines</h6>
+    <table class="table table-sm table-bordered">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Tier</th>
+                <th>Unit Price</th>
+                <th>Discount</th>
+                <th>Amount</th>
+                <th>Fulfilment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let line of data.lines">
+                <td>{{ line.product?.name }}</td>
+                <td>{{ line.quantity }}</td>
+                <td>{{ line.priceTier }}</td>
+                <td>{{ line.unitPrice | number:'1.2-2' }}</td>
+                <td>{{ line.discount | number:'1.2-2' }}</td>
+                <td>{{ line.amount | number:'1.2-2' }}</td>
+                <td>{{ line.fulfilment }}</td>
+            </tr>
+        </tbody>
+    </table>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
