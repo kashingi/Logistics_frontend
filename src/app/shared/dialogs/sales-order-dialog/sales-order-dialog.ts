@@ -12,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { SalesOrderService } from '../../../core/services/sales-order-service';
 import { Product } from '../../../core/services/product';
 import { Snackbar } from '../../../core/services/snackbar';
+import { MatDivider } from '@angular/material/divider';
 
 @Component({
   selector: 'app-sales-order-dialog',
@@ -26,7 +27,8 @@ import { Snackbar } from '../../../core/services/snackbar';
     MatIconModule,
     MatDatepickerModule,
     MatNativeDateModule,
-  ],
+    MatDivider
+],
   templateUrl: './sales-order-dialog.html',
   styleUrl: './sales-order-dialog.scss',
 })

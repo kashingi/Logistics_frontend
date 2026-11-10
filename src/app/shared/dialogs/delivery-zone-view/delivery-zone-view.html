@@ -1,0 +1,32 @@
+<h2 mat-dialog-title class="text-center">Zone Details</h2>
+
+<mat-divider></mat-divider>
+
+<mat-dialog-content>
+    <div class="row g-2">
+        <div class="col-4"><strong>Name:</strong></div>
+        <div class="col-8">{{ data.name }}</div>
+
+        <div class="col-4"><strong>Status:</strong></div>
+        <div class="col-8">
+            <span class="badge" [class.bg-success]="data.status === 'ACTIVE'"
+                [class.bg-secondary]="data.status !== 'ACTIVE'">
+                {{ data.status }}
+            </span>
+        </div>
+
+        <div class="col-4"><strong>Locations:</strong></div>
+        <div class="col-8">
+            <ul class="mb-0 ps-3" *ngIf="data.locations?.length; else noLoc">
+                <li *ngFor="let loc of data.locations">{{ loc }}</li>
+            </ul>
+            <ng-template #noLoc>-</ng-template>
+        </div>
+
+        <div class="col-4"><strong>Created:</strong></div>
+        <div class="col-8">{{ data.createdAt | date:'medium' }}</div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

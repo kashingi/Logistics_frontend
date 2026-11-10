@@ -1,0 +1,98 @@
+<h2 mat-dialog-title class="text-center">{{ isEdit ? 'Edit Rider' : 'Add Rider' }}</h2>
+
+<mat-divider></mat-divider>
+
+<mat-dialog-content class="pt-3">
+  <form [formGroup]="form">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>First Name *</mat-label>
+          <input matInput formControlName="firstName" />
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Last Name *</mat-label>
+          <input matInput formControlName="lastName" />
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Phone *</mat-label>
+          <input matInput formControlName="phone" />
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>National ID / Passport</mat-label>
+          <input matInput formControlName="nationalIdOrPassport" />
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Date Joined</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="dateJoined" />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Zone</mat-label>
+          <mat-select formControlName="currentZoneId">
+            <mat-option [value]="null">None</mat-option>
+            <mat-option *ngFor="let z of zones" [value]="z.id">{{ z.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Vehicle Registration</mat-label>
+          <input matInput formControlName="vehicleRegistrationNo" />
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Vehicle Type</mat-label>
+          <mat-select formControlName="vehicleType">
+            <mat-option *ngFor="let v of vehicleTypes" [value]="v">{{ v }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Carrying Capacity (Kg)</mat-label>
+          <input matInput type="number" formControlName="carryingCapacityKg" />
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Contract Duration (Months)</mat-label>
+          <input matInput type="number" formControlName="contractDurationMonths" />
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status">
+            <mat-option value="ACTIVE">ACTIVE</mat-option>
+            <mat-option value="INACTIVE">INACTIVE</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="isLoading">
+    {{ isLoading ? 'Saving...' : (isEdit ? 'Update' : 'Save') }}
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,32 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Edit Delivery Zone' : 'Add Delivery Zone' }}</h2>
+
+<mat-dialog-content class="pt-3">
+    <form [formGroup]="form">
+        <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Zone Name *</mat-label>
+            <input matInput formControlName="name" placeholder="e.g. Langata" />
+            <mat-error *ngIf="form.get('name')?.hasError('required')">Name is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100 mb-3">
+            <mat-label>Locations (comma separated)</mat-label>
+            <textarea matInput rows="3" formControlName="locationsText"
+                placeholder="Nairobi West, Madaraka, Langata"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+                <mat-option value="ACTIVE">ACTIVE</mat-option>
+                <mat-option value="INACTIVE">INACTIVE</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="isLoading">
+        {{ isLoading ? 'Saving...' : (isEdit ? 'Update' : 'Save') }}
+    </button>
+</mat-dialog-actions>

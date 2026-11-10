@@ -1,0 +1,44 @@
+<h2 mat-dialog-title class="text-center">Rider Details</h2>
+
+<mat-divider></mat-divider>
+
+<mat-dialog-content>
+    <div class="row g-2">
+        <div class="col-5"><strong>Name:</strong></div>
+        <div class="col-7">{{ data.firstName }} {{ data.lastName }}</div>
+
+        <div class="col-5"><strong>Phone:</strong></div>
+        <div class="col-7">{{ data.phone }}</div>
+
+        <div class="col-5"><strong>ID / Passport:</strong></div>
+        <div class="col-7">{{ data.nationalIdOrPassport || '-' }}</div>
+
+        <div class="col-5"><strong>Date Joined:</strong></div>
+        <div class="col-7">{{ data.dateJoined | date:'mediumDate' }}</div>
+
+        <div class="col-5"><strong>Vehicle:</strong></div>
+        <div class="col-7">{{ data.vehicleType || '-' }} ({{ data.vehicleRegistrationNo || '-' }})</div>
+
+        <div class="col-5"><strong>Capacity:</strong></div>
+        <div class="col-7">{{ data.carryingCapacityKg || '-' }} Kg</div>
+
+        <div class="col-5"><strong>Zone:</strong></div>
+        <div class="col-7">{{ data.currentZone?.name || '-' }}</div>
+
+        <div class="col-5"><strong>Status:</strong></div>
+        <div class="col-7">
+            <span class="badge" [class.bg-success]="data.status === 'ACTIVE'"
+                [class.bg-secondary]="data.status !== 'ACTIVE'">
+                {{ data.status }}
+            </span>
+        </div>
+
+        <div class="col-5"><strong>Available:</strong></div>
+        <div class="col-7">
+            {{ (data.isAvailable || data.available) ? 'Yes' : 'No' }}
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
