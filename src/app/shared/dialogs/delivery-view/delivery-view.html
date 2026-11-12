@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>Delivery #{{ data.id }}</h2>
+<mat-dialog-content>
+    <div class="row g-2 mb-3">
+        <div class="col-4"><strong>SO No:</strong></div>
+        <div class="col-8">{{ data.salesOrder?.soNumber || '-' }}</div>
+
+        <div class="col-4"><strong>Customer:</strong></div>
+        <div class="col-8">{{ data.salesOrder?.customer?.name || '-' }}</div>
+
+        <div class="col-4"><strong>Type:</strong></div>
+        <div class="col-8">{{ data.deliveryType }}</div>
+
+        <div class="col-4"><strong>Rider:</strong></div>
+        <div class="col-8">
+            {{ data.rider ? (data.rider.firstName + ' ' + data.rider.lastName) : '-' }}
+        </div>
+
+        <div class="col-4"><strong>Status:</strong></div>
+        <div class="col-8"><span class="badge bg-info">{{ data.status }}</span></div>
+
+        <div class="col-4"><strong>LOT:</strong></div>
+        <div class="col-8">{{ data.lotNumber || '-' }}</div>
+
+        <div class="col-4"><strong>Picked At:</strong></div>
+        <div class="col-8">{{ data.pickedAt | date:'medium' }}</div>
+
+        <div class="col-4"><strong>Completed At:</strong></div>
+        <div class="col-8">{{ data.completedAt | date:'medium' }}</div>
+    </div>
+
+    <h6 *ngIf="data.scannedBarcodes?.length">Scanned Barcodes</h6>
+    <ul *ngIf="data.scannedBarcodes?.length">
+        <li *ngFor="let b of data.scannedBarcodes">{{ b }}</li>
+    </ul>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

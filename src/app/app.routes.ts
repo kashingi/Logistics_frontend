@@ -19,6 +19,8 @@ import { SalesQuotation } from './features/sales/sales-quotation/sales-quotation
 import { SalesOrder } from './features/sales/sales-order/sales-order';
 import { DeliveryZone } from './features/logistics/delivery-zone/delivery-zone';
 import { Riders } from './features/logistics/riders/riders';
+import { OrdersForDelivery } from './features/logistics/orders-for-delivery/orders-for-delivery';
+import { Deliveries } from './features/logistics/deliveries/deliveries';
 
 export const routes: Routes = [
     { path: '', component: Login },
@@ -40,8 +42,10 @@ export const routes: Routes = [
             { path: 'stock-transfers', component: StockTransfer, canActivate: [authGuard] },
             { path: 'sales-quotations', component: SalesQuotation, canActivate: [authGuard] },
             { path: 'sales-orders', component: SalesOrder, canActivate: [authGuard] },
-            { path: 'delivery-zones', component: DeliveryZone, canActivate: [authGuard]},
-            { path: 'riders', component: Riders, canActivate: [authGuard]}
+            { path: 'delivery-zones', component: DeliveryZone, canActivate: [authGuard] },
+            { path: 'riders', component: Riders, canActivate: [authGuard] },
+            { path: 'orders-for-delivery', component: OrdersForDelivery, canActivate: [authGuard] },
+            { path: 'deliveries', component: Deliveries, canActivate: [authGuard] }
         ]
     },
     { path: '**', redirectTo: '' },

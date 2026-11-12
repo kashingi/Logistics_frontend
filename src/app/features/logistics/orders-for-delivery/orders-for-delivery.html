@@ -1,0 +1,90 @@
+<div class="container-fluid py-3">
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+    <h4 class="mb-0">Orders for Delivery</h4>
+
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>Dispatch Type</mat-label>
+      <mat-select [(ngModel)]="selectedDispatchType" (selectionChange)="onFilterChange()">
+        <mat-option *ngFor="let t of dispatchTypes" [value]="t.value">
+          {{ t.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table mat-table [dataSource]="orders" class="w-100">
+
+          <ng-container matColumnDef="soNumber">
+            <th mat-header-cell *matHeaderCellDef>SO No</th>
+            <td mat-cell *matCellDef="let row">{{ row.soNumber }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="customer">
+            <th mat-header-cell *matHeaderCellDef>Customer</th>
+            <td mat-cell *matCellDef="let row">{{ row.customer?.name || '-' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="dispatchType">
+            <th mat-header-cell *matHeaderCellDef>Type</th>
+            <td mat-cell *matCellDef="let row">{{ row.dispatchType || '-' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="totalAmount">
+            <th mat-header-cell *matHeaderCellDef>Total</th>
+            <td mat-cell *matCellDef="let row">{{ row.totalAmount | number:'1.2-2' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let row">
+              <span class="badge bg-info">{{ row.status }}</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="text-end">Actions</th>
+            <td mat-cell *matCellDef="let row" class="text-end">
+              <button mat-icon-button color="primary" matTooltip="View" (click)="openView(row)">
+                <mat-icon>visibility</mat-icon>
+              </button>
+
+              <button
+                mat-icon-button
+                color="accent"
+                matTooltip="Assign Rider"
+                *ngIf="row.dispatchType !== 'COLLECTION'"
+                (click)="openAssignRider(row)"
+              >
+                <mat-icon>two_wheeler</mat-icon>
+              </button>
+
+              <button mat-icon-button matTooltip="Allocate LOT" (click)="allocateLot(row)">
+                <mat-icon>qr_code_2</mat-icon>
+              </button>
+
+              <button mat-icon-button matTooltip="Scan Item" (click)="scanItem(row)">
+                <mat-icon>qr_code_scanner</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+
+       @if (isLoading) {
+            <div class="text-center py-5 text-muted">
+                Loading orders for deliverr ...
+            </div>
+            }
+
+      <div *ngIf="!isLoading && orders.length === 0" class="text-center py-5 text-muted">
+        No orders for delivery
+      </div>
+    </div>
+  </div>
+</div>

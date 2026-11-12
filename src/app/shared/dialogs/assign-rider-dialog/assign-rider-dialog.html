@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Assign Rider</h2>
+<mat-dialog-content class="pt-3">
+    <p class="text-muted mb-3">
+        Order: <strong>{{ data.order?.soNumber }}</strong>
+    </p>
+    <form [formGroup]="form">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Select Rider</mat-label>
+            <mat-select formControlName="riderId">
+                <mat-option *ngFor="let r of riders" [value]="r.id">
+                    {{ r.firstName }} {{ r.lastName }} ({{ r.phone }})
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="isLoading">
+        {{ isLoading ? 'Assigning...' : 'Assign' }}
+    </button>
+</mat-dialog-actions>

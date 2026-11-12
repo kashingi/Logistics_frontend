@@ -1,0 +1,117 @@
+<div class="container-fluid py-3">
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+        <h4 class="mb-0">Deliveries</h4>
+
+        <div class="d-flex gap-2 flex-wrap">
+            <mat-form-field appearance="outline" class="filter-field">
+                <mat-label>Type</mat-label>
+                <mat-select [(ngModel)]="selectedType" (selectionChange)="onFilterChange()">
+                    <mat-option *ngFor="let t of typeOptions" [value]="t.value">
+                        {{ t.label }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="filter-field">
+                <mat-label>Status</mat-label>
+                <mat-select [(ngModel)]="selectedStatus" (selectionChange)="onFilterChange()">
+                    <mat-option *ngFor="let s of statusOptions" [value]="s.value">
+                        {{ s.label }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table mat-table [dataSource]="deliveries" class="w-100">
+
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef>#</th>
+                        <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="soNumber">
+                        <th mat-header-cell *matHeaderCellDef>SO No</th>
+                        <td mat-cell *matCellDef="let row">{{ row.salesOrder?.soNumber || '-' }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="customer">
+                        <th mat-header-cell *matHeaderCellDef>Customer</th>
+                        <td mat-cell *matCellDef="let row">{{ row.salesOrder?.customer?.name || '-' }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="deliveryType">
+                        <th mat-header-cell *matHeaderCellDef>Type</th>
+                        <td mat-cell *matCellDef="let row">{{ row.deliveryType }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="rider">
+                        <th mat-header-cell *matHeaderCellDef>Rider</th>
+                        <td mat-cell *matCellDef="let row">
+                            {{ row.rider ? (row.rider.firstName + ' ' + row.rider.lastName) : '-' }}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef>Status</th>
+                        <td mat-cell *matCellDef="let row">
+                            <span class="badge bg-info">{{ row.status }}</span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef class="text-end">Actions</th>
+                        <td mat-cell *matCellDef="let row" class="text-end">
+                            <button mat-icon-button color="primary" matTooltip="View" (click)="openView(row)">
+                                <mat-icon>visibility</mat-icon>
+                            </button>
+
+                            <button mat-icon-button matTooltip="Mark Picked" *ngIf="row.status === 'PENDING'"
+                                (click)="markPicked(row)">
+                                <mat-icon>inventory</mat-icon>
+                            </button>
+
+                            <button mat-icon-button color="primary" matTooltip="Mark Collected"
+                                *ngIf="row.deliveryType === 'COLLECTION' && row.status !== 'COLLECTED' && row.status !== 'COMPLETED'"
+                                (click)="markCollected(row)">
+                                <mat-icon>handshake</mat-icon>
+                            </button>
+
+                            <button mat-icon-button color="primary" matTooltip="Complete"
+                                *ngIf="row.status === 'PICKED' || row.status === 'IN_PROGRESS'" (click)="complete(row)">
+                                <mat-icon>check_circle</mat-icon>
+                            </button>
+
+                            <button mat-icon-button color="warn" matTooltip="Cancel"
+                                *ngIf="row.status !== 'COMPLETED' && row.status !== 'CANCELLED' && row.status !== 'COLLECTED'"
+                                (click)="cancel(row)">
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+
+                            <button mat-icon-button matTooltip="Return"
+                                *ngIf="row.status === 'COMPLETED' || row.status === 'IN_PROGRESS'"
+                                (click)="returnDelivery(row)">
+                                <mat-icon>assignment_return</mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                </table>
+            </div>
+            @if (isLoading) {
+            <div class="text-center py-5 text-muted">
+                Loading deliveries...
+            </div>
+            }
+
+            <div *ngIf="!isLoading && deliveries.length === 0" class="text-center py-5 text-muted">
+                No deliveries found
+            </div>
+        </div>
+    </div>
+</div>
