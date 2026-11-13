@@ -13,7 +13,7 @@ export class SalesOrderService {
 
   constructor(private httpClient: HttpClient) { }
 
-   createSalesOrder(data: SalesOrderCreateRequest): Observable<SalesOrderCreateRequest> {
+  createSalesOrder(data: SalesOrderCreateRequest): Observable<SalesOrderCreateRequest> {
     const createUrl = `${this.apiUrl}/sales-orders/addSalesOrder`;
 
     return this.httpClient.post<SalesOrderCreateRequest>(createUrl, data);

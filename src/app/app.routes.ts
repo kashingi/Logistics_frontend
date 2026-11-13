@@ -21,6 +21,7 @@ import { DeliveryZone } from './features/logistics/delivery-zone/delivery-zone';
 import { Riders } from './features/logistics/riders/riders';
 import { OrdersForDelivery } from './features/logistics/orders-for-delivery/orders-for-delivery';
 import { Deliveries } from './features/logistics/deliveries/deliveries';
+import { PurchaseReturn } from './features/procurement/purchase-return/purchase-return';
 
 export const routes: Routes = [
     { path: '', component: Login },
@@ -45,7 +46,8 @@ export const routes: Routes = [
             { path: 'delivery-zones', component: DeliveryZone, canActivate: [authGuard] },
             { path: 'riders', component: Riders, canActivate: [authGuard] },
             { path: 'orders-for-delivery', component: OrdersForDelivery, canActivate: [authGuard] },
-            { path: 'deliveries', component: Deliveries, canActivate: [authGuard] }
+            { path: 'deliveries', component: Deliveries, canActivate: [authGuard] },
+            { path: 'purchase-returns', component: PurchaseReturn, canActivate: [authGuard]}
         ]
     },
     { path: '**', redirectTo: '' },
