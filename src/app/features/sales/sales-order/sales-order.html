@@ -44,7 +44,7 @@
                                 <mat-icon>check</mat-icon>
                             </button>
 
-                            <button mat-icon-button [matMenuTriggerFor]="dispatchMenu" *ngIf="row.status === 'PENDING'"
+                            <button mat-icon-button [matMenuTriggerFor]="dispatchMenu" *ngIf="row.status !== 'PENDING'"
                                 matTooltip="Dispatch / Collection">
                                 <mat-icon>local_shipping</mat-icon>
                             </button>
@@ -65,10 +65,10 @@
                 </table>
             </div>
             @if (isLoading) {
-      <div class="text-center py-5 text-muted">
-        Loading sales orders...
-      </div>
-      }
+            <div class="text-center py-5 text-muted">
+                Loading sales orders...
+            </div>
+            }
             <div *ngIf="!isLoading && orders.length === 0" class="text-center py-5 text-muted">
                 No sales orders found
             </div>

@@ -1,0 +1,78 @@
+<div class="container-fluid py-3">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h4 class="mb-1">Pending Sales Orders</h4>
+            <p class="text-muted mb-0 small">Orders waiting confirmation, dispatch or collection</p>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table mat-table [dataSource]="orders" class="w-100">
+                    <ng-container matColumnDef="soNumber">
+                        <th mat-header-cell *matHeaderCellDef>SO No</th>
+                        <td mat-cell *matCellDef="let row">{{ row.soNumber }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="customer">
+                        <th mat-header-cell *matHeaderCellDef>Customer</th>
+                        <td mat-cell *matCellDef="let row">{{ row.customer?.name || '-' }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef>Date</th>
+                        <td mat-cell *matCellDef="let row">{{ row.date | date:'mediumDate' }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="totalAmount">
+                        <th mat-header-cell *matHeaderCellDef>Total</th>
+                        <td mat-cell *matCellDef="let row">{{ row.totalAmount | number:'1.2-2' }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef>Status</th>
+                        <td mat-cell *matCellDef="let row">
+                            <span class="badge bg-warning text-dark">{{ row.status }}</span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef class="text-end">Actions</th>
+                        <td mat-cell *matCellDef="let row" class="text-end">
+                            <button mat-icon-button color="primary" matTooltip="View" (click)="openView(row)">
+                                <mat-icon>visibility</mat-icon>
+                            </button>
+
+                            <button mat-icon-button color="primary" matTooltip="Confirm" *ngIf="row.status === 'DRAFT'"
+                                (click)="confirm(row)">
+                                <mat-icon>check</mat-icon>
+                            </button>
+
+                            <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="row.status === 'PENDING'"
+                                matTooltip="Process">
+                                <mat-icon>local_shipping</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="dispatch(row, 'STANDARD')">Standard Dispatch</button>
+                                <button mat-menu-item (click)="dispatch(row, 'EXPRESS')">Express Dispatch</button>
+                                <button mat-menu-item (click)="collection(row)">Customer Collection</button>
+                            </mat-menu>
+
+                            <button mat-icon-button color="warn" matTooltip="Cancel" *ngIf="row.status !== 'CANCELLED'"
+                                (click)="cancel(row)">
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                </table>
+            </div>
+            @if (isLoading) {
+            <div class="text-center py-5 text-muted">
+                Loading pending orders...
+            </div>
+            }
+            <div *ngIf="!isLoading && orders.length === 0" class="text-center py-5 text-muted">
+                No pending orders
+            </div>
+        </div>
+    </div>
+</div>

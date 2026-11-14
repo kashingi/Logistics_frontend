@@ -22,6 +22,7 @@ import { Riders } from './features/logistics/riders/riders';
 import { OrdersForDelivery } from './features/logistics/orders-for-delivery/orders-for-delivery';
 import { Deliveries } from './features/logistics/deliveries/deliveries';
 import { PurchaseReturn } from './features/procurement/purchase-return/purchase-return';
+import { PendingOrders } from './features/sales/pending-orders/pending-orders';
 
 export const routes: Routes = [
     { path: '', component: Login },
@@ -47,7 +48,8 @@ export const routes: Routes = [
             { path: 'riders', component: Riders, canActivate: [authGuard] },
             { path: 'orders-for-delivery', component: OrdersForDelivery, canActivate: [authGuard] },
             { path: 'deliveries', component: Deliveries, canActivate: [authGuard] },
-            { path: 'purchase-returns', component: PurchaseReturn, canActivate: [authGuard]}
+            { path: 'purchase-returns', component: PurchaseReturn, canActivate: [authGuard]},
+            { path: 'pending-orders', component: PendingOrders, canActivate: [authGuard]}
         ]
     },
     { path: '**', redirectTo: '' },

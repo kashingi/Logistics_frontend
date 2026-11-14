@@ -62,7 +62,7 @@ export class PurchaseReturnDialog {
     this.form = this.formBuilder.group({
       supplierId: [null, Validators.required],
       returnDate: [new Date(), Validators.required],
-      notes: [''],
+      remarks: [''],
       lines: this.formBuilder.array([this.createLine()]),
     });
   }
