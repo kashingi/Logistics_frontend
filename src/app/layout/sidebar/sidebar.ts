@@ -57,7 +57,7 @@ export class Sidebar {
         { label: 'Stock Out', icon: 'indeterminate_check_box', route: '/main-layout/stock-outs' },
         { label: 'Stock Transfer', icon: 'swap_horiz', route: '/main-layout/stock-transfers' },
         { label: 'Stock Check', icon: 'fact_check', route: '/main-layout/stock-checks' },
-        { label: 'Stock Levels', icon: 'bar_chart', route: '/main-layout/stock' },
+        { label: 'Stock Levels', icon: 'bar_chart', route: '/main-layout/stock-levels' },
       ],
     },
     {

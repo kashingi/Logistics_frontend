@@ -13,21 +13,27 @@ export class StockLevelService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllStockChecks(): Observable<StockLevelModel[]> {
-    const getUrl = `${this.apiUrl}/stock-checks/getAllStockChecks`;
+  getAllStockLevels(): Observable<StockLevelModel[]> {
+    const getUrl = `${this.apiUrl}/stocks/getAllStockLevels`;
 
     return this.httpClient.get<StockLevelModel[]>(getUrl);
   }
 
-  getByWarehouse(warehouseId: number): Observable<any> {
-    return this.httpClient.get(`${this.apiUrl}/stock-checks/warehouse/${warehouseId}`);
+  getStockByWarehouse(warehouseId: number): Observable<StockLevelModel[]> {
+    const byWarehouseUrl = `${this.apiUrl}/stocks/getStockByWarehouse/${warehouseId}`;
+
+    return this.httpClient.get<StockLevelModel[]>(byWarehouseUrl);
   }
 
-  getByProduct(productId: number): Observable<any> {
-    return this.httpClient.get(`${this.apiUrl}/product/${productId}`);
+  getStockByProduct(productId: number): Observable<StockLevelModel[]> {
+    const byProductUrl = `${this.apiUrl}/getStockByProductId/${productId}`;
+
+    return this.httpClient.get<StockLevelModel[]>(byProductUrl);
   }
 
   getLowStock(threshold: number = 10): Observable<any> {
-    return this.httpClient.get(`${this.apiUrl}/low-stock?threshold=${threshold}`);
+    const lowUrl = `${this.apiUrl}/low-stock?threshold=${threshold}`;
+
+    return this.httpClient.get(lowUrl);
   }
 }

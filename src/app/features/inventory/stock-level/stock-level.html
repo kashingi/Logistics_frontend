@@ -1,0 +1,86 @@
+<div class="container-fluid py-3">
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+        <h4 class="mb-0">Stock Levels</h4>
+        <div class="d-flex flex-wrap gap-2 align-items-center">
+            <mat-form-field appearance="outline" class="filter-field">
+                <mat-label>Warehouse</mat-label>
+                <mat-select [(ngModel)]="selectedWarehouseId" (selectionChange)="onFilterChange()">
+                    <mat-option [value]="null">All</mat-option>
+                    <mat-option *ngFor="let w of warehouses" [value]="w.id">{{ w.name }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="filter-field">
+                <mat-label>Search</mat-label>
+                <input matInput [(ngModel)]="searchText" (ngModelChange)="onSearchChange()"
+                    placeholder="Product / SKU / Batch" />
+            </mat-form-field>
+
+            <button mat-stroked-button [color]="lowStockOnly ? 'warn' : undefined"
+                (click)="lowStockOnly = !lowStockOnly; applyFilters()">
+                <mat-icon>warning</mat-icon>
+                {{ lowStockOnly ? 'Showing Low Stock' : 'Low Stock Only' }}
+            </button>
+        </div>
+    </div>
+
+    <div class="alert alert-warning d-flex align-items-center gap-2"
+        *ngIf="filtered.length && filtered.filter(r => isLow(r)).length">
+        <mat-icon>error_outline</mat-icon>
+        <span>
+            {{ filtered.filter(r => isLow(r)).length }} item(s) below threshold ({{ threshold }} units).
+        </span>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table mat-table [dataSource]="filtered" class="w-100">
+                    <ng-container matColumnDef="product">
+                        <th mat-header-cell *matHeaderCellDef>Product</th>
+                        <td mat-cell *matCellDef="let row">{{ row.product?.name || '-' }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="sku">
+                        <th mat-header-cell *matHeaderCellDef>SKU</th>
+                        <td mat-cell *matCellDef="let row">{{ row.product?.skuCode || '-' }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="warehouse">
+                        <th mat-header-cell *matHeaderCellDef>Warehouse</th>
+                        <td mat-cell *matCellDef="let row">{{ row.warehouse?.name || '-' }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="batch">
+                        <th mat-header-cell *matHeaderCellDef>Batch</th>
+                        <td mat-cell *matCellDef="let row">{{ row.batch?.lotNumber || '-' }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="onHand">
+                        <th mat-header-cell *matHeaderCellDef>On Hand</th>
+                        <td mat-cell *matCellDef="let row">
+                            <span class="badge" [class.bg-danger]="isLow(row)" [class.bg-success]="!isLow(row)">
+                                {{ row.quantityOnHand ?? 0 }}
+                            </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef>Status</th>
+                        <td mat-cell *matCellDef="let row">
+                            <span class="badge" [class.bg-danger]="isLow(row)" [class.bg-secondary]="!isLow(row)">
+                                {{ isLow(row) ? 'LOW' : 'OK' }}
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns" [class.table-danger]="isLow(row)"></tr>
+                </table>
+            </div>
+            @if (isLoading) {
+            <div class="text-center py-5 text-muted">
+                Loading stock levels ...
+            </div>
+            }
+            <div *ngIf="!isLoading && filtered.length === 0" class="text-center py-5 text-muted">
+                No stock levels found
+            </div>
+        </div>
+    </div>
+</div>

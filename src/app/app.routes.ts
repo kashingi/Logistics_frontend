@@ -23,6 +23,8 @@ import { OrdersForDelivery } from './features/logistics/orders-for-delivery/orde
 import { Deliveries } from './features/logistics/deliveries/deliveries';
 import { PurchaseReturn } from './features/procurement/purchase-return/purchase-return';
 import { PendingOrders } from './features/sales/pending-orders/pending-orders';
+import { StockChecks } from './features/inventory/stock-checks/stock-checks';
+import { StockLevel } from './features/inventory/stock-level/stock-level';
 
 export const routes: Routes = [
     { path: '', component: Login },
@@ -31,25 +33,27 @@ export const routes: Routes = [
     { path: 'auth/verify-email', component: VerifyEmail },
     { path: 'auth/reset-password', component: ResetPassword },
     {
-        path: 'main-layout', component: MainLayout,
+        path: 'main-layout', component: MainLayout, canActivate: [authGuard],
         children: [
-            { path: 'categories', component: Categories, canActivate: [authGuard] },
-            { path: 'products', component: Products, canActivate: [authGuard] },
-            { path: 'warehouses', component: Warehouse, canActivate: [authGuard] },
-            { path: 'suppliers', component: Suppliers, canActivate: [authGuard] },
-            { path: 'purchase-orders', component: PurchaseOrders, canActivate: [authGuard] },
-            { path: 'goods-received-notes', component: GoodsReceivedNotes, canActivate: [authGuard] },
-            { path: 'stock-ins', component: StockIn, canActivate: [authGuard] },
-            { path: 'stock-outs', component: StockOut, canActivate: [authGuard] },
-            { path: 'stock-transfers', component: StockTransfer, canActivate: [authGuard] },
-            { path: 'sales-quotations', component: SalesQuotation, canActivate: [authGuard] },
-            { path: 'sales-orders', component: SalesOrder, canActivate: [authGuard] },
-            { path: 'delivery-zones', component: DeliveryZone, canActivate: [authGuard] },
-            { path: 'riders', component: Riders, canActivate: [authGuard] },
-            { path: 'orders-for-delivery', component: OrdersForDelivery, canActivate: [authGuard] },
-            { path: 'deliveries', component: Deliveries, canActivate: [authGuard] },
-            { path: 'purchase-returns', component: PurchaseReturn, canActivate: [authGuard]},
-            { path: 'pending-orders', component: PendingOrders, canActivate: [authGuard]}
+            { path: 'categories', component: Categories},
+            { path: 'products', component: Products},
+            { path: 'warehouses', component: Warehouse},
+            { path: 'suppliers', component: Suppliers},
+            { path: 'purchase-orders', component: PurchaseOrders},
+            { path: 'goods-received-notes', component: GoodsReceivedNotes},
+            { path: 'stock-ins', component: StockIn},
+            { path: 'stock-outs', component: StockOut},
+            { path: 'stock-transfers', component: StockTransfer},
+            { path: 'sales-quotations', component: SalesQuotation},
+            { path: 'sales-orders', component: SalesOrder},
+            { path: 'delivery-zones', component: DeliveryZone},
+            { path: 'riders', component: Riders},
+            { path: 'orders-for-delivery', component: OrdersForDelivery},
+            { path: 'deliveries', component: Deliveries},
+            { path: 'purchase-returns', component: PurchaseReturn},
+            { path: 'pending-orders', component: PendingOrders},
+            { path: 'stock-checks', component: StockChecks},
+            { path: 'stock-levels', component: StockLevel}
         ]
     },
     { path: '**', redirectTo: '' },
