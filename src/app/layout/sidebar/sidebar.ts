@@ -29,7 +29,7 @@ export class Sidebar {
   @Input() collapsed = false;
 
   menuItems: MenuItem[] = [
-    { label: 'Dashboard', icon: 'dashboard', route: '/dashboard' },
+    { label: 'Dashboard', icon: 'dashboard', route: '/main-layout' },
     {
       label: 'Catalog',
       icon: 'inventory_2',

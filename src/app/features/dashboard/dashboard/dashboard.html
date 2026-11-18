@@ -1,0 +1,124 @@
+<div class="dash">
+    <div class="dash-header">
+        <div>
+            <h2>Dashboard</h2>
+            <p class="subtitle">Welcome back! Here's an overview of your logistics operations.</p>
+        </div>
+        <mat-form-field appearance="outline" class="period-field">
+            <mat-label>Period</mat-label>
+            <mat-select [(ngModel)]="days" (selectionChange)="onDaysChange()">
+                <mat-option [value]="7">Last 7 Days</mat-option>
+                <mat-option [value]="30">Last 30 Days</mat-option>
+                <mat-option [value]="90">Last 90 Days</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <!-- KPI cards -->
+    <div class="kpi-grid">
+        <div class="kpi blue">
+            <div class="kpi-icon"><mat-icon>inventory_2</mat-icon></div>
+            <div>
+                <div class="kpi-label">Total Orders</div>
+                <div class="kpi-value">{{ data.totalOrders || 0 | number }}</div>
+                <div class="kpi-change">{{ data.totalOrdersChange }}</div>
+            </div>
+        </div>
+
+        <div class="kpi green">
+            <div class="kpi-icon"><mat-icon>local_shipping</mat-icon></div>
+            <div>
+                <div class="kpi-label">Deliveries Made</div>
+                <div class="kpi-value">{{ data.deliveriesMade || 0 | number }}</div>
+                <div class="kpi-change">{{ data.deliveriesChange }}</div>
+            </div>
+        </div>
+
+        <div class="kpi orange">
+            <div class="kpi-icon"><mat-icon>payments</mat-icon></div>
+            <div>
+                <div class="kpi-label">Total Sales</div>
+                <div class="kpi-value">{{ formatMoney(data.totalSales) }}</div>
+                <div class="kpi-change">{{ data.totalSalesChange }}</div>
+            </div>
+        </div>
+
+        <div class="kpi purple">
+            <div class="kpi-icon"><mat-icon>warning</mat-icon></div>
+            <div>
+                <div class="kpi-label">Stock Alerts</div>
+                <div class="kpi-value">{{ data.stockAlerts || 0 }}</div>
+                <div class="kpi-change warn">{{ data.stockAlertsChange }}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts row -->
+    <div class="charts-row">
+        <div class="card chart-card">
+            <div class="card-title">Sales Trend</div>
+            <div class="chart-box">
+                <canvas baseChart [data]="lineChartData" [options]="lineChartOptions" type="line"></canvas>
+            </div>
+        </div>
+
+        <div class="card chart-card">
+            <div class="card-title">Deliveries by Status</div>
+            <div class="chart-box donut">
+                <canvas baseChart [data]="donutData" [options]="donutOptions" type="doughnut"></canvas>
+            </div>
+            <div class="donut-center" *ngIf="data.deliveriesTotal != null">
+                <strong>{{ data.deliveriesTotal | number }}</strong>
+                <span>Deliveries</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom widgets -->
+    <div class="widgets-row">
+        <div class="card">
+            <div class="card-title-row">
+                <span>Top Selling Products</span>
+                <a routerLink="/main-layout/products">View All →</a>
+            </div>
+            <div class="list-item" *ngFor="let p of data.topSellingProducts; let i = index">
+                <span class="rank">{{ i + 1 }}.</span>
+                <div class="flex-grow-1">
+                    <div class="name">{{ p.productName }}</div>
+                    <div class="meta">{{ p.unitsSold | number }} units</div>
+                </div>
+                <span class="badge-up" *ngIf="p.growthLabel">{{ p.growthLabel }}</span>
+            </div>
+            <div class="empty" *ngIf="!data.topSellingProducts?.length">No sales data yet</div>
+        </div>
+
+        <div class="card">
+            <div class="card-title-row">
+                <span>Low Stock Alerts</span>
+                <a routerLink="/main-layout/stock-levels">View All →</a>
+            </div>
+            <div class="list-item" *ngFor="let s of data.lowStockItems">
+                <div class="flex-grow-1">
+                    <div class="name">{{ s.productName }}</div>
+                    <div class="meta">Minimum: {{ s.minimumQty || 10 }} units · {{ s.warehouseName }}</div>
+                </div>
+                <span class="badge-danger">{{ s.quantityOnHand }} units</span>
+            </div>
+            <div class="empty" *ngIf="!data.lowStockItems?.length">All stock levels healthy</div>
+        </div>
+
+        <div class="card">
+            <div class="card-title-row">
+                <span>Recent Activities</span>
+            </div>
+            <div class="activity" *ngFor="let a of data.recentActivities">
+                <span class="dot" [class.warn]="a.severity === 'WARNING'"></span>
+                <div class="flex-grow-1">
+                    <div [class.text-danger]="a.severity === 'WARNING'">{{ a.message }}</div>
+                </div>
+                <span class="time">{{ a.timeAgo }}</span>
+            </div>
+            <div class="empty" *ngIf="!data.recentActivities?.length">No recent activity</div>
+        </div>
+    </div>
+</div>

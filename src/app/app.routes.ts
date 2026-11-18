@@ -26,6 +26,7 @@ import { PendingOrders } from './features/sales/pending-orders/pending-orders';
 import { StockChecks } from './features/inventory/stock-checks/stock-checks';
 import { StockLevel } from './features/inventory/stock-level/stock-level';
 import { Customers } from './features/sales/customers/customers';
+import { Dashboard } from './features/dashboard/dashboard/dashboard';
 
 export const routes: Routes = [
     { path: '', component: Login },
@@ -36,6 +37,7 @@ export const routes: Routes = [
     {
         path: 'main-layout', component: MainLayout, canActivate: [authGuard],
         children: [
+            { path: '', component: Dashboard },
             { path: 'categories', component: Categories },
             { path: 'products', component: Products },
             { path: 'warehouses', component: Warehouse },

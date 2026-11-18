@@ -10,7 +10,7 @@
         <ng-container *ngFor="let item of menuItems">
             <!-- Single item -->
             @if (!item.children) {
-            <a [routerLink]="item.route" routerLinkActive="active" class="nav-item"
+            <a [routerLink]="item.route" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-item"
                 [matTooltip]="collapsed ? item.label : ''" matTooltipPosition="right">
                 <mat-icon>{{ item.icon }}</mat-icon>
                 @if (!collapsed) {
