@@ -1,0 +1,89 @@
+<h2 mat-dialog-title class="text-center">{{ isEdit ? 'Edit Customer' : 'Add Customer' }}</h2>
+<mat-divider></mat-divider>
+<mat-dialog-content class="pt-3">
+    <form [formGroup]="form">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>First Name *</mat-label>
+                    <input matInput formControlName="firstName" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName="lastName" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Phone *</mat-label>
+                    <input matInput formControlName="phone" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>KRA PIN</mat-label>
+                    <input matInput formControlName="kraPin" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status">
+                        <mat-option value="ACTIVE">ACTIVE</mat-option>
+                        <mat-option value="INACTIVE">INACTIVE</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Street</mat-label>
+                    <input matInput formControlName="street" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>City</mat-label>
+                    <input matInput formControlName="city" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Landmark</mat-label>
+                    <input matInput formControlName="buildingLandmark" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>House No</mat-label>
+                    <input matInput formControlName="houseNo" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Contact Person</mat-label>
+                    <input matInput formControlName="contactPerson" />
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Contact Phone</mat-label>
+                    <input matInput formControlName="contactPhone" />
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="isLoading">
+        {{ isLoading ? 'Saving...' : (isEdit ? 'Update' : 'Save') }}
+    </button>
+</mat-dialog-actions>

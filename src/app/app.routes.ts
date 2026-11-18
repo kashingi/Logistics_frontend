@@ -25,6 +25,7 @@ import { PurchaseReturn } from './features/procurement/purchase-return/purchase-
 import { PendingOrders } from './features/sales/pending-orders/pending-orders';
 import { StockChecks } from './features/inventory/stock-checks/stock-checks';
 import { StockLevel } from './features/inventory/stock-level/stock-level';
+import { Customers } from './features/sales/customers/customers';
 
 export const routes: Routes = [
     { path: '', component: Login },
@@ -35,25 +36,26 @@ export const routes: Routes = [
     {
         path: 'main-layout', component: MainLayout, canActivate: [authGuard],
         children: [
-            { path: 'categories', component: Categories},
-            { path: 'products', component: Products},
-            { path: 'warehouses', component: Warehouse},
-            { path: 'suppliers', component: Suppliers},
-            { path: 'purchase-orders', component: PurchaseOrders},
-            { path: 'goods-received-notes', component: GoodsReceivedNotes},
-            { path: 'stock-ins', component: StockIn},
-            { path: 'stock-outs', component: StockOut},
-            { path: 'stock-transfers', component: StockTransfer},
-            { path: 'sales-quotations', component: SalesQuotation},
-            { path: 'sales-orders', component: SalesOrder},
-            { path: 'delivery-zones', component: DeliveryZone},
-            { path: 'riders', component: Riders},
-            { path: 'orders-for-delivery', component: OrdersForDelivery},
-            { path: 'deliveries', component: Deliveries},
-            { path: 'purchase-returns', component: PurchaseReturn},
-            { path: 'pending-orders', component: PendingOrders},
-            { path: 'stock-checks', component: StockChecks},
-            { path: 'stock-levels', component: StockLevel}
+            { path: 'categories', component: Categories },
+            { path: 'products', component: Products },
+            { path: 'warehouses', component: Warehouse },
+            { path: 'suppliers', component: Suppliers },
+            { path: 'purchase-orders', component: PurchaseOrders },
+            { path: 'goods-received-notes', component: GoodsReceivedNotes },
+            { path: 'stock-ins', component: StockIn },
+            { path: 'stock-outs', component: StockOut },
+            { path: 'stock-transfers', component: StockTransfer },
+            { path: 'sales-quotations', component: SalesQuotation },
+            { path: 'sales-orders', component: SalesOrder },
+            { path: 'delivery-zones', component: DeliveryZone },
+            { path: 'riders', component: Riders },
+            { path: 'orders-for-delivery', component: OrdersForDelivery },
+            { path: 'deliveries', component: Deliveries },
+            { path: 'purchase-returns', component: PurchaseReturn },
+            { path: 'pending-orders', component: PendingOrders },
+            { path: 'stock-checks', component: StockChecks },
+            { path: 'stock-levels', component: StockLevel },
+            { path: 'customers', component: Customers }
         ]
     },
     { path: '**', redirectTo: '' },
