@@ -7,11 +7,19 @@
     </div>
 
     <div class="navbar-right">
-        <button mat-icon-button [matMenuTriggerFor]="userMenu">
-            <mat-icon>account_circle</mat-icon>
+        <button mat-button class="user-menu-trigger" [matMenuTriggerFor]="userMenu" aria-label="Open account menu">
+            <span class="user-menu-content">
+                <span class="user-avatar" aria-hidden="true">{{ userInitials }}</span>
+                <mat-icon class="user-chevron" aria-hidden="true">keyboard_arrow_down</mat-icon>
+            </span>
         </button>
 
         <mat-menu #userMenu="matMenu">
+            <div class="user-details" role="group" aria-label="Signed-in user">
+                <span class="user-email">{{ userEmail }}</span>
+                <span class="user-role">{{ 'Role: ' + userRole }}</span>
+            </div>
+            <mat-divider></mat-divider>
             <button mat-menu-item routerLink="/profile">
                 <mat-icon>person</mat-icon>
                 <span>Profile</span>

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { User } from '../models/user';
+import { TokenUser, User } from '../models/user';
 import { Observable, tap } from 'rxjs';
 
 @Injectable({
@@ -56,12 +56,19 @@ export class Auth {
     return this.httpClient.post(`${this.apiUrl}/auth/change-password`, { currentPassword, newPassword });
   }
 
-  getUserDetails() {
+  getUserDetails(): TokenUser | null {
+    if (typeof localStorage === 'undefined') return null;
+
     const token = localStorage.getItem('token');
 
     if (!token) return null;
 
-    return JSON.parse(atob(token.split('.')[1]));
+    const payload = token.split('.')[1];
+    if (!payload) return null;
+
+    const base64Payload = payload.replace(/-/g, '+').replace(/_/g, '/');
+    const paddedPayload = base64Payload.padEnd(Math.ceil(base64Payload.length / 4) * 4, '=');
+    return JSON.parse(atob(paddedPayload)) as TokenUser;
   }
 
   logout(): void {
